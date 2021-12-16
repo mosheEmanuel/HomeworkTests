@@ -60,15 +60,15 @@
         android:textSize="25sp"
         app:drawableEndCompat="@android:drawable/arrow_down_float" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnxet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="220dp"
         android:text="הבא"
-        android:textColor="@color/black"
-        android:background="@color/white"
+        android:textColor="@color/white"
+        android:background="#1B89E1"
         />
 
 
