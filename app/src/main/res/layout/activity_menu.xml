@@ -7,9 +7,29 @@
     tools:context=".MenuActivity"
     android:orientation="vertical">
 
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:layout_marginTop="233dp">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_add_24"/>
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/ic_baseline_add_24"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+
+</FrameLayout>
+
 
 </LinearLayout>
