@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,20 +17,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvClass;
     String[] classArray = {"ז", "ח", "ט", "י", "יא", "יב"};
     String theChoice = null;
-    boolean isDan = true;
     Button btnxet;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sp = getSharedPreferences("isDan", 0);
+        boolean isDan = sp.getBoolean("isDan", true);
         if (!isDan) {
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
+            finish();
         }
         init();
     }
+
 
     public void init() {
         etfname = findViewById(R.id.etfname);
@@ -51,10 +58,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == tvClass)
             selectedClass();
         else if (v == btnxet) {
-            if (!etLname.toString().isEmpty() && !etfname.toString().isEmpty()) {
-                isDan = false;
+            if (!etLname.toString().isEmpty() && !etfname.toString().isEmpty() && theChoice != null) {
+                editor = sp.edit();
+                editor.putBoolean("isDan", false);
+                editor.apply();
+
+                sp = getSharedPreferences("Details",0);
+                editor = sp.edit();
+
+                editor.putString("fname",etfname.getText().toString());
+                editor.putString("Lname",etfname.getText().toString());
+                editor.putString("theChoice",theChoice);
+
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
+                finish();
+
             }
         }
     }
