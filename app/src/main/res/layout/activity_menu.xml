@@ -4,23 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    />
+
 
 <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="500dp"
-    android:layout_marginTop="233dp"
-    tools:ignore="UselessParent">
+    android:layout_height="match_parent"
+    tools:ignore="UselessParent"
+    >
+
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,8 +28,17 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:src="@drawable/ic_baseline_add_24"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        android:alpha="0.7"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:text=""
+        android:textSize="50sp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/black"
+        />
 
 
 </FrameLayout>
