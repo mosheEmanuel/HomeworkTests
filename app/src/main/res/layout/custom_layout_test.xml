@@ -29,18 +29,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="תרגלים:"
             android:textSize="25sp"
             android:layout_marginLeft="10dp"
             tools:ignore="HardcodedText,RtlHardcoded" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="25sp"
-            android:layout_marginStart="10dp"
-            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -50,17 +44,12 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="עמודים:"
             android:textSize="25sp"
             android:layout_marginStart="30dp"
             tools:ignore="HardcodedText" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="25sp"
-            android:layout_marginStart="10dp"
+
             />
 
     </LinearLayout>
@@ -72,18 +61,11 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="30dp"
             android:text="מקצוע:"
             android:textSize="25sp"
             tools:ignore="HardcodedText" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="25sp"
-            android:layout_marginStart="10dp"
-            />
 
 
 
@@ -94,17 +76,12 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="תאריך המבחן:"
         android:layout_gravity="center"
         android:textSize="30sp"
         tools:ignore="HardcodedText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text=""
-        android:textSize="15sp" />
+  />
 
     </LinearLayout>
