@@ -22,28 +22,21 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_menu);
 
         init();
-
     }
-
 
     public void init() {
         fab = findViewById(R.id.fab);
         fab1 = findViewById(R.id.fab1);
         fab2 = findViewById(R.id.fab2);
 
-        fabOpen = AnimationUtils.loadAnimation
-                (this, R.anim.fab_open);
-        fabClose = AnimationUtils.loadAnimation
-                (this, R.anim.fab_close);
-        rotateForward = AnimationUtils.loadAnimation
-                (this, R.anim.rotate_forward);
-        rotateBackward = AnimationUtils.loadAnimation
-                (this, R.anim.rotate_backward);
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+        rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
+        rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         fab.setOnClickListener(this);
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
-
     }
 
     @Override

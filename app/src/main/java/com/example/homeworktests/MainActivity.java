@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_main);
 
+        firstScreen();
+        init();
+    }
+
+    public void firstScreen() {
         sp = getSharedPreferences("isDan", 0);
         boolean isDan = sp.getBoolean("isDan", true);
         if (!isDan) {
@@ -35,15 +40,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             finish();
         }
-        init();
     }
 
-
     public void init() {
-        etfname = findViewById(R.id.etfname);
+        etfname = findViewById(R.id.etFname);
         etLname = findViewById(R.id.etLname);
         tvClass = findViewById(R.id.tvClass);
-        btnxet = findViewById(R.id.btnxet);
+        btnxet = findViewById(R.id.btnNext);
 
         tvClass.setOnClickListener(this);
         btnxet.setOnClickListener(this);
@@ -64,12 +67,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putBoolean("isDan", false);
                 editor.apply();
 
-                sp = getSharedPreferences("Details",0);
+                sp = getSharedPreferences("Details", 0);
                 editor = sp.edit();
 
-                editor.putString("fname",etfname.getText().toString());
-                editor.putString("Lname",etfname.getText().toString());
-                editor.putString("theChoice",theChoice);
+                editor.putString("fname", etfname.getText().toString());
+                editor.putString("Lname", etfname.getText().toString());
+                editor.putString("theChoice", theChoice);
 
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
