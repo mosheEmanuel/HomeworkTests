@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3828125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/ic_baseline_find_in_page_24.xml" value="0.3828125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/ic_baseline_home_work_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/myButton.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/my_button.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/mybutton.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/add_homework_dialog.xml" value="0.36102564102564105" />
