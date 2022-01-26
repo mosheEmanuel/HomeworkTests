@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MenuActivity">
+    android:layout_height="match_parent">
 
     <ListView
         android:layout_width="match_parent"
@@ -34,8 +32,8 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="90dp"
-        android:src="@drawable/icons8_test"
         android:visibility="invisible" />
+    <!--        android:src="@drawable/icons8_test_64"-->
 
     <TextView
         android:layout_width="match_parent"

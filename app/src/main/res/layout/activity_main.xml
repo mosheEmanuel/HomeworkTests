@@ -30,8 +30,7 @@
         android:inputType="text"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="25sp"
-        android:autofillHints="" />
+        android:textSize="25sp" />
 
     <EditText
         android:id="@+id/etLname"
@@ -44,8 +43,7 @@
         android:inputType="text"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
-        android:textSize="25sp"
-        android:autofillHints="" />
+        android:textSize="25sp" />
 
     <TextView
         android:id="@+id/tvClass"
