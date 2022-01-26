@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etfname, etLname;
+    EditText etFirsName, etLastName;
     TextView tvClass;
     String[] classArray = {"ז", "ח", "ט", "י", "יא", "יב"};
     String theChoice = null;
@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void init() {
-        etfname = findViewById(R.id.etFname);
-        etLname = findViewById(R.id.etLname);
+        etFirsName = findViewById(R.id.etFirsName);
+        etLastName = findViewById(R.id.etLastName);
         tvClass = findViewById(R.id.tvClass);
         btnxet = findViewById(R.id.btnNext);
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v == tvClass)
             selectedClass();
         else if (v == btnxet) {
-            if (!etLname.toString().isEmpty() && !etfname.toString().isEmpty() && theChoice != null) {
+            if (!etLastName.toString().isEmpty() && !etFirsName.toString().isEmpty() && theChoice != null) {
                 editor = sp.edit();
                 editor.putBoolean("isDan", false);
                 editor.apply();
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sp = getSharedPreferences("Details", 0);
                 editor = sp.edit();
 
-                editor.putString("fname", etfname.getText().toString());
-                editor.putString("Lname", etfname.getText().toString());
+                editor.putString("fname", etFirsName.getText().toString());
+                editor.putString("Lname", etLastName.getText().toString());
                 editor.putString("theChoice", theChoice);
 
                 Intent intent = new Intent(this, MenuActivity.class);

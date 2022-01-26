@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    tools:ignore="HardcodedText"
-    >
+    tools:ignore="HardcodedText">
 
     <TextView
+        android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="שלום הגעתם לאפליקציה \n שתעשה לכם סדר בשעורי בית ובמבחנים"
@@ -20,10 +20,11 @@
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/etFname"
+        android:id="@+id/etFirsName"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@+id/tv"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:hint="שם פרטי"
@@ -33,10 +34,11 @@
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/etLname"
+        android:id="@+id/etLastName"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@+id/etFirsName"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:hint="שם משפחה"
@@ -49,7 +51,8 @@
         android:id="@+id/tvClass"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_below="@+id/etLastName"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:background="@android:drawable/editbox_background"
         android:gravity="center"
@@ -60,24 +63,16 @@
         app:drawableEndCompat="@android:drawable/arrow_down_float" />
 
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnNext"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_gravity="start"
-        android:gravity="bottom"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="#1B89E1"
-            android:text="הבא"
-            android:textColor="#000000" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#1B89E1"
+        android:text="הבא"
+        android:textColor="#000000" />
 
 
-</LinearLayout>
+</RelativeLayout>
