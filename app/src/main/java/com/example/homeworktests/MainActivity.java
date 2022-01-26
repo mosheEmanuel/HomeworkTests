@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sp = getSharedPreferences("Details", 0);
                 editor = sp.edit();
 
-                editor.putString("fname", etFirsName.getText().toString());
-                editor.putString("Lname", etLastName.getText().toString());
+                editor.putString("FirsName", etFirsName.getText().toString());
+                editor.putString("LastName", etLastName.getText().toString());
                 editor.putString("theChoice", theChoice);
 
                 Intent intent = new Intent(this, MenuActivity.class);
