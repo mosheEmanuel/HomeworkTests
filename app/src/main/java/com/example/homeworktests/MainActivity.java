@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvClass;
     String[] classArray = {"ז", "ח", "ט", "י", "יא", "יב"};
     String theChoice = null;
-    Button btnxet;
+    Button btnNext;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
 
@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void firstScreen() {
         sp = getSharedPreferences("isDan", 0);
-        boolean isDan = sp.getBoolean("isDan", true);
-        if (!isDan) {
+        boolean isDan = sp.getBoolean("isDan", false);
+        if (isDan) {
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
             finish();
@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etFirsName = findViewById(R.id.etFirsName);
         etLastName = findViewById(R.id.etLastName);
         tvClass = findViewById(R.id.tvClass);
-        btnxet = findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
 
         tvClass.setOnClickListener(this);
-        btnxet.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
     }
 
     /**
@@ -61,10 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == tvClass)
             selectedClass();
-        else if (v == btnxet) {
+        else if (v == btnNext) {
             if (!etLastName.toString().isEmpty() && !etFirsName.toString().isEmpty() && theChoice != null) {
                 editor = sp.edit();
-                editor.putBoolean("isDan", false);
+                editor.putBoolean("isDan", true);
                 editor.apply();
 
                 sp = getSharedPreferences("Details", 0);
@@ -90,8 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         builder.setSingleChoiceItems(classArray, 0, (dialog, which) -> theChoice = classArray[which]);
 
-        builder.setPositiveButton("OK", (dialog, which) -> tvClass.setText(theChoice)
-        );
+        builder.setPositiveButton("OK", (dialog, which) -> tvClass.setText(theChoice));
 
         builder.setNegativeButton("cancel", null);
         builder.show();

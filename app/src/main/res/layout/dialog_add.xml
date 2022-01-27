@@ -30,22 +30,60 @@
         android:textColor="#0E75F3"
         android:textSize="30sp" />
 
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tv"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:prompt="מספר עמוד" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tv"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:prompt="מספר תרגיל" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:layout_toStartOf="@+id/spinner2"
+        android:prompt="מספר תרגיל" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/spinner2"
+        android:text="-"
+        android:textSize="30sp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="75dp"
+        android:layout_height="48dp"
+        android:src="@drawable/ic_baseline_add_24" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn"
         android:layout_width="250dp"
         android:layout_height="75dp"
-        android:layout_below="@+id/tv"
+        android:layout_below="@+id/spinner1"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/my_button"
         android:hint="להוסיף שעורי בית"
-        android:layout_centerHorizontal="true"
         android:textColorHint="#E91E63"
-        android:textSize="20sp" />
-
-    <Spinner
-        android:layout_width="125dp"
-        android:layout_height="35dp"
-        android:layout_below="@+id/btn"
-        android:layout_marginTop="10dp" />
-
+        android:textSize="20sp"
+        />
 </RelativeLayout>
