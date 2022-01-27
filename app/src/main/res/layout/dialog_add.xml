@@ -30,16 +30,17 @@
         android:textColor="#0E75F3"
         android:textSize="30sp" />
 
-    <Spinner
+    <EditText
         android:id="@+id/spinner1"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_below="@+id/tv"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:prompt="מספר עמוד" />
+        android:hint="עמוד"
+        android:inputType="number" />
 
-    <Spinner
+    <EditText
         android:id="@+id/spinner2"
         android:layout_width="75dp"
         android:layout_height="48dp"
@@ -47,9 +48,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:prompt="מספר תרגיל" />
+        android:hint="מ תרגיל" />
 
-    <Spinner
+    <EditText
         android:id="@+id/spinner3"
         android:layout_width="75dp"
         android:layout_height="48dp"
@@ -57,7 +58,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:layout_toStartOf="@+id/spinner2"
-        android:prompt="מספר תרגיל" />
+        android:hint="עד" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,21 +70,25 @@
         android:text="-"
         android:textSize="30sp" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageButton
+        android:id="@+id/btnPlus"
         android:layout_width="75dp"
         android:layout_height="48dp"
+        android:layout_below="@id/spinner1"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="#4797E6"
         android:src="@drawable/ic_baseline_add_24" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn"
         android:layout_width="250dp"
         android:layout_height="75dp"
-        android:layout_below="@+id/spinner1"
+        android:layout_below="@+id/btnPlus"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/my_button"
         android:hint="להוסיף שעורי בית"
         android:textColorHint="#E91E63"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp" />
 </RelativeLayout>

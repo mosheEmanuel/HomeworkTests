@@ -2,6 +2,7 @@ package com.example.homeworktests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,6 +16,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     boolean isOpen = false;
+
+    Dialog d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,5 +72,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             fab2.setClickable(true);
             isOpen = true;
         }
+    }
+    public void createLoginDialog()
+    {
+        d= new Dialog(this);
+        d.setContentView(R.layout.dialog_add);
+        d.setCancelable(true);
     }
 }
