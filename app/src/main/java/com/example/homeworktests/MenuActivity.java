@@ -47,6 +47,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (v == fab) {
             animateFab();
         } else if (v == fab1) {
+            createLoginDialog();
             animateFab();
             Toast.makeText(this, "click 1", Toast.LENGTH_SHORT).show();
         } else if (v == fab2) {
@@ -78,5 +79,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         d= new Dialog(this);
         d.setContentView(R.layout.dialog_add);
         d.setCancelable(true);
+        d.show();
     }
 }

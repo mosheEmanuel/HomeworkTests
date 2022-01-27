@@ -48,7 +48,8 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:hint="מ תרגיל" />
+        android:hint="מ תרגיל"
+        android:inputType="number" />
 
     <EditText
         android:id="@+id/spinner3"
@@ -58,7 +59,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="30dp"
         android:layout_toStartOf="@+id/spinner2"
-        android:hint="עד" />
+        android:hint="עד"
+        android:inputType="number" />
 
     <TextView
         android:layout_width="wrap_content"
