@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
@@ -40,6 +40,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         fab.setOnClickListener(this);
         fab1.setOnClickListener(this);
         fab2.setOnClickListener(this);
+
+        fab.setOnLongClickListener(this);
+        fab1.setOnLongClickListener(this);
+        fab2.setOnLongClickListener(this);
     }
 
     @Override
@@ -54,7 +58,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             animateFab();
             Toast.makeText(this, "click 2", Toast.LENGTH_SHORT).show();
         }
+    }
 
+    @Override
+    public boolean onLongClick(View v) {
+
+        if (v == fab1) {
+            Toast.makeText(this, "הוספת שעורי בית", Toast.LENGTH_SHORT).show();
+            return true;
+        } if (v == fab2) {
+            Toast.makeText(this, "הוספת מבחן", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 
     private void animateFab() {
@@ -74,11 +90,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             isOpen = true;
         }
     }
-    public void createLoginDialog()
-    {
-        d= new Dialog(this);
+
+    public void createLoginDialog() {
+        d = new Dialog(this);
         d.setContentView(R.layout.dialog_add);
         d.setCancelable(true);
         d.show();
     }
+
+
 }
