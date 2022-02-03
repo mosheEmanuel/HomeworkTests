@@ -2,7 +2,7 @@ package com.example.homeworktests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,7 +17,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     boolean isOpen = false;
 
-    Dialog d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (v == fab) {
             animateFab();
         } else if (v == fab1) {
-            createLoginDialog();
+            Intent intent = new Intent(this, AddActivity.class);
+            startActivity(intent);
             animateFab();
             Toast.makeText(this, "click 1", Toast.LENGTH_SHORT).show();
         } else if (v == fab2) {
@@ -66,7 +66,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (v == fab1) {
             Toast.makeText(this, "הוספת שעורי בית", Toast.LENGTH_SHORT).show();
             return true;
-        } if (v == fab2) {
+        }
+        if (v == fab2) {
             Toast.makeText(this, "הוספת מבחן", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -89,13 +90,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             fab2.setClickable(true);
             isOpen = true;
         }
-    }
-
-    public void createLoginDialog() {
-        d = new Dialog(this);
-        d.setContentView(R.layout.dialog_add);
-        d.setCancelable(true);
-        d.show();
     }
 
 

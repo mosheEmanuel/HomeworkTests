@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeworkTests">
         <activity
+            android:name=".AddActivity"
+            android:exported="false" />
+        <activity
             android:name=".MenuActivity"
             android:exported="false" />
         <activity
