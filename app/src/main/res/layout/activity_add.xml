@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +12,8 @@
         android:id="@+id/text_input"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        tools:ignore="MissingClass">
 
         <EditText
             android:id="@+id/et"
@@ -21,7 +23,7 @@
             android:inputType="text"
             android:textColorHighlight="#7cff88"
             android:textColorHint="#546E7A"
-            tools:ignore="SpeakableTextPresentCheck" />
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
@@ -54,21 +56,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:drawableEnd="@drawable/ic_baseline_access_time_24"
         android:drawablePadding="10dp"
         android:text="הגדרת התראות"
         android:textColor="#E91E63"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        app:drawableEndCompat="@drawable/ic_baseline_access_time_24" />
 
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="200dp"
-        android:layout_height="25dp"
+        android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:prompt="@string/spinner_title"
-        android:spinnerMode="dialog"
-        />
+        android:spinnerMode="dialog" />
 
     <Button
         android:id="@+id/btn"

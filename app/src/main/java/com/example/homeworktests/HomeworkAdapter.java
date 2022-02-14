@@ -1,45 +1,63 @@
 package com.example.homeworktests;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 
-public class HomeworkAdapter extends ArrayAdapter<Homework_Test> {
+public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.HomeworkTViewHolder> {
 
-    Context context;
-    List<Homework_Test> objects;
+    Context mCtx;
+    List<Homework_Test> productList;
 
-    public HomeworkAdapter(Context context, int resource, int textViewResourceId, List<Homework_Test> objects) {
-        super(context, resource, textViewResourceId, objects);
-        this.context = context;
-        this.objects = objects;
+    public HomeworkAdapter(Context mCtx, List<Homework_Test> productList) {
+        this.mCtx = mCtx;
+        this.productList = productList;
     }
 
+    @NonNull
+    @Override
+    public HomeworkTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(mCtx);
+        View view = inflater.inflate(R.layout.custom_layout_homework, null);
+        return new HomeworkTViewHolder(view);
+    }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater layoutInflater = ((Activity) context).getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_layout_homework, parent, false);
-        ImageView ivPic = view.findViewById(R.id.ivPic);
-        TextView tvQuestions = view.findViewById(R.id.tvQuestions);
-        TextView tvPage = view.findViewById(R.id.tvPage);
-        TextView tvSubject = view.findViewById(R.id.tvSubject);
-        TextView tvDate_of_submission = view.findViewById(R.id.tvDate_of_submission);
-        Homework_Test homeworkTest = objects.get(position);
+    public void onBindViewHolder(@NonNull HomeworkTViewHolder holder, int position) {
+        Homework_Test product = productList.get(position);
+        holder.ivPic.setImageBitmap(product.getBitmap());
+        holder.tvSubject.setText(product.getSubject());
+        holder.tvPage.setText(product.getPage());
+        holder.tvDate.setText(product.getDate());
+    }
 
-        ivPic.setImageBitmap(homeworkTest.getBitmap());
-        tvDate_of_submission.setText(homeworkTest.getDate_of_submission());
-        tvPage.setText(homeworkTest.getPage());
-        tvSubject.setText(homeworkTest.getSubject());
-        tvQuestions.setText(homeworkTest.getQuestions());
-        return view;
+    @Override
+    public int getItemCount() {
+        return productList.size();
+    }
+
+    class HomeworkTViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView ivPic;
+        TextView tvPage, tvSubject, tvDate;
+
+        public HomeworkTViewHolder(View itemView) {
+            super(itemView);
+            ivPic = itemView.findViewById(R.id.ivPic);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            tvPage = itemView.findViewById(R.id.tvPage);
+            tvSubject = itemView.findViewById(R.id.tvSubject);
+
+        }
+
     }
 }

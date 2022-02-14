@@ -4,14 +4,13 @@ import android.graphics.Bitmap;
 
 public class Homework_Test {
     private Bitmap bitmap;
-    private String questions,page,subject,Date_of_submission;
+    private String page, subject, date;
 
-    public Homework_Test(Bitmap bitmap, String questions, String page, String subject, String date_of_submission) {
+    public Homework_Test(Bitmap bitmap, String page, String subject, String date) {
         this.bitmap = bitmap;
-        this.questions = questions;
         this.page = page;
         this.subject = subject;
-        Date_of_submission = date_of_submission;
+        this.date = date;
     }
 
     public Bitmap getBitmap() {
@@ -20,14 +19,6 @@ public class Homework_Test {
 
     public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
-    }
-
-    public String getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(String questions) {
-        this.questions = questions;
     }
 
     public String getPage() {
@@ -46,11 +37,9 @@ public class Homework_Test {
         this.subject = subject;
     }
 
-    public String getDate_of_submission() {
-        return Date_of_submission;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate_of_submission(String date_of_submission) {
-        Date_of_submission = date_of_submission;
-    }
+    public void setDate(String date) { this.date = date; }
 }
