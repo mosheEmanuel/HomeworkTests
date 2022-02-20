@@ -12,7 +12,7 @@
         android:src="@drawable/icons8_homework_64" />
 
     <TextView
-        android:id="@+id/tvPage"
+        android:id="@+id/tvSubject"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
@@ -21,10 +21,10 @@
         android:textSize="30sp" />
 
     <TextView
-        android:id="@+id/tvSubject"
+        android:id="@+id/tvPage"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:layout_below="@id/tvPage"
+        android:layout_below="@id/tvSubject"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
@@ -34,7 +34,7 @@
         android:id="@+id/tvDate"
         android:layout_width="125dp"
         android:layout_height="50dp"
-        android:layout_below="@id/tvPage"
+        android:layout_below="@id/tvSubject"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:textSize="30sp" />

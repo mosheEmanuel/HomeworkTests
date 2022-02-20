@@ -16,7 +16,7 @@
         tools:ignore="MissingClass">
 
         <EditText
-            android:id="@+id/et"
+            android:id="@+id/etSubject"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="המקצוע"
@@ -27,7 +27,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/et1"
+        android:id="@+id/etSubSubject"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
@@ -36,7 +36,7 @@
         android:textColorHint="#546E7A" />
 
     <EditText
-        android:id="@+id/et2"
+        android:id="@+id/etPage"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
@@ -44,7 +44,7 @@
         android:textColorHint="#546E7A" />
 
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -53,6 +53,7 @@
         android:textSize="30sp" />
 
     <TextView
+        android:id="@+id/tvNotifications"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -72,7 +73,7 @@
         android:spinnerMode="dialog" />
 
     <Button
-        android:id="@+id/btn"
+        android:id="@+id/btnAdd"
         android:layout_width="250dp"
         android:layout_height="75dp"
         android:layout_marginTop="20dp"
