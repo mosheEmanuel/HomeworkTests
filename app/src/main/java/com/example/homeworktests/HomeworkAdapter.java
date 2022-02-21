@@ -16,9 +16,9 @@ import java.util.List;
 public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.HomeworkTViewHolder> {
 
     Context mCtx;
-    List<Homework_Test> productList;
+    List<Homework> productList;
 
-    public HomeworkAdapter(Context mCtx, List<Homework_Test> productList) {
+    public HomeworkAdapter(Context mCtx, List<Homework> productList) {
         this.mCtx = mCtx;
         this.productList = productList;
     }
@@ -33,7 +33,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
 
     @Override
     public void onBindViewHolder(@NonNull HomeworkTViewHolder holder, int position) {
-        Homework_Test product = productList.get(position);
+        Homework product = productList.get(position);
         holder.ivPic.setImageBitmap(product.getBitmap());
         holder.tvSubject.setText(product.getSubject());
         holder.tvPage.setText(product.getPage());

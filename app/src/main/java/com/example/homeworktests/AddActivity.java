@@ -56,7 +56,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         priority.add("בנונית");
         priority.add("גבוהה");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_single_choice, priority);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, priority);
         spinner.setAdapter(arrayAdapter);
         spinner.setOnItemSelectedListener(this);
     }

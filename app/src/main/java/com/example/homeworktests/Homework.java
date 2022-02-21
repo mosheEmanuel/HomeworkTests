@@ -2,11 +2,13 @@ package com.example.homeworktests;
 
 import android.graphics.Bitmap;
 
-public class Homework_Test {
+public class Homework {
     private Bitmap bitmap;
-    private String page, subject, date;
+    private String page;
+    private  String subject;
+    private String date;
 
-    public Homework_Test(Bitmap bitmap, String page, String subject, String date) {
+    public Homework(Bitmap bitmap, String page, String subject, String date) {
         this.bitmap = bitmap;
         this.page = page;
         this.subject = subject;

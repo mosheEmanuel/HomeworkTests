@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setTitle("תבחר כיתה");
         builder.setCancelable(false);
 
-        builder.setSingleChoiceItems(classArray, 0, (dialog, which) -> theChoice = classArray[which]);
+        builder.setSingleChoiceItems(classArray, -1, (dialog, which) -> theChoice = classArray[which]);
 
         builder.setPositiveButton("OK", (dialog, which) -> tvClass.setText(theChoice));
 
