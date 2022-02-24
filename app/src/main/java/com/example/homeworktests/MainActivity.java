@@ -52,11 +52,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnNext.setOnClickListener(this);
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
     @Override
     public void onClick(View v) {
         if (v == tvClass)
@@ -67,13 +62,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 editor.putBoolean("isDan", true);
                 editor.apply();
 
-                sp = getSharedPreferences("Details", 0);
+                sp = getSharedPreferences("details", 0);
                 editor = sp.edit();
 
                 editor.putString("FirsName", etFirsName.getText().toString());
                 editor.putString("LastName", etLastName.getText().toString());
                 editor.putString("theChoice", theChoice);
-
+                editor.apply();
                 Intent intent = new Intent(this, MenuActivity.class);
                 startActivity(intent);
                 finish();
@@ -88,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         builder.setTitle("תבחר כיתה");
         builder.setCancelable(false);
 
-        builder.setSingleChoiceItems(classArray, -1, (dialog, which) -> theChoice = classArray[which]);
+        builder.setSingleChoiceItems(classArray, -1,(dialog, which) -> theChoice = classArray[which]);
 
         builder.setPositiveButton("OK", (dialog, which) -> tvClass.setText(theChoice));
 

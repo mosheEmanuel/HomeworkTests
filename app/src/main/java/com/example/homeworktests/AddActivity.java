@@ -23,7 +23,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     EditText etSubject, etSubSubject;
     TextView tvDate, tvNotifications;
-    Spinner spinner;
+    Spinner spinnerPriority;
     Button btnAdd;
 
     List<String> priority;
@@ -43,7 +43,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         tvDate = findViewById(R.id.tvDate);
         tvNotifications = findViewById(R.id.tvNotifications);
         btnAdd = findViewById(R.id.btnAdd);
-        spinner = findViewById(R.id.spinner);
+        spinnerPriority = findViewById(R.id.spinnerPriority);
 
         tvDate.setOnClickListener(this);
         tvNotifications.setOnClickListener(this);
@@ -56,9 +56,9 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         priority.add("בנונית");
         priority.add("גבוהה");
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_selectable_list_item, priority);
-        spinner.setAdapter(arrayAdapter);
-        spinner.setOnItemSelectedListener(this);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, priority);
+        spinnerPriority.setAdapter(arrayAdapter);
+        spinnerPriority.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -95,7 +95,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
             monthOfYear++;
             String str = "אתה בחרת :" + dayOfMonth + "/0" + monthOfYear + "/" + year % 100;
             Toast.makeText(AddActivity.this, str, Toast.LENGTH_LONG).show();

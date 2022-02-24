@@ -3,10 +3,12 @@ package com.example.homeworktests;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,6 +18,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     boolean isOpen = false;
+    TextView tvOpen;
 
 
     @Override
@@ -24,9 +27,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_menu);
 
         init();
+        setTextOpen();
     }
 
     public void init() {
+
+        tvOpen = findViewById(R.id.tvOpen);
         fab = findViewById(R.id.fab);
         fab1 = findViewById(R.id.fab1);
         fab2 = findViewById(R.id.fab2);
@@ -58,6 +64,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             animateFab();
             Toast.makeText(this, "click 2", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void setTextOpen() {
+        SharedPreferences sp = getSharedPreferences("details",0);
+        String strFirsName = sp.getString("FirsName",null);
+        String strLastName = sp.getString("LastName",null);
+        tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
+
+
     }
 
     @Override

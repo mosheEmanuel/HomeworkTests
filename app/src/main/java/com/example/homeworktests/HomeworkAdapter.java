@@ -38,6 +38,8 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
         holder.tvSubject.setText(product.getSubject());
         holder.tvPage.setText(product.getPage());
         holder.tvDate.setText(product.getDate());
+        holder.tvPriority.setText(product.getDate());
+
     }
 
     @Override
@@ -48,7 +50,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
     class HomeworkTViewHolder extends RecyclerView.ViewHolder {
 
         ImageView ivPic;
-        TextView tvPage, tvSubject, tvDate;
+        TextView tvPage, tvSubject, tvDate ,tvPriority;
 
         public HomeworkTViewHolder(View itemView) {
             super(itemView);
@@ -56,6 +58,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
             tvDate = itemView.findViewById(R.id.tvDate);
             tvPage = itemView.findViewById(R.id.tvPage);
             tvSubject = itemView.findViewById(R.id.tvSubject);
+            tvPriority = itemView.findViewById(R.id.tvPriority);
 
         }
 
