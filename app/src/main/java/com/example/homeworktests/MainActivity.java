@@ -15,8 +15,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     EditText etFirsName, etLastName;
     TextView tvClass;
-    String[] classArray = {"ז", "ח", "ט", "י", "יא", "יב"};
-    String theChoice = null;
+    String theChoice;
     Button btnNext;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -79,16 +78,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void selectedClass() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("תבחר כיתה");
-        builder.setCancelable(false);
+        String[] classArray = {"ז", "ח", "ט", "י", "יא", "יב"};
 
-        builder.setSingleChoiceItems(classArray, -1,(dialog, which) -> theChoice = classArray[which]);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("תבחר כיתה")
+                .setCancelable(false);
 
-        builder.setPositiveButton("OK", (dialog, which) -> tvClass.setText(theChoice));
-
-        builder.setNegativeButton("cancel", null);
-        builder.show();
+        builder.setSingleChoiceItems(classArray, -1, (dialog, which) -> theChoice = classArray[which])
+                .setPositiveButton("OK", (dialog, which) -> tvClass.setText(theChoice))
+                .setNegativeButton("cancel", null)
+                .show();
     }
 
 
