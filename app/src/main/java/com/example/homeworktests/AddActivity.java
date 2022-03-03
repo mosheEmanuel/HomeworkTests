@@ -21,13 +21,20 @@ import java.util.List;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    EditText etSubject, etSubSubject;
+    EditText etSubject, etSubSubject, etPage;
     TextView tvDate, tvNotifications;
     Spinner spinnerPriority;
     Button btnAdd;
 
+
+    String subject;
+    String subSubject;
+    String page;
     int notifications;
     int priority;
+    int year;
+    int month;
+    int dayOfMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void init() {
         etSubject = findViewById(R.id.etSubject);
         etSubSubject = findViewById(R.id.etSubSubject);
+        etPage = findViewById(R.id.etPage);
         tvDate = findViewById(R.id.tvDate);
         tvNotifications = findViewById(R.id.tvNotifications);
         btnAdd = findViewById(R.id.btnAdd);
@@ -63,8 +71,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void setBtnAdd() {
-
-
+        subject = etSubject.getText().toString();
+        subSubject = etSubSubject.getText().toString();
+        page = etPage.getText().toString();
+        Homework homework = new Homework(page, subject, subSubject, notifications, priority, year, month, dayOfMonth);
     }
 
     public void setTvDate() {
@@ -79,7 +89,9 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
+        this.year = year;
+        this.month = month;
+        this.dayOfMonth = dayOfMonth;
         month++;
         String str = "אתה בחרת :" + dayOfMonth + "/" + month + "/" + year % 100;
         tvDate.setText(str);
