@@ -19,19 +19,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     EditText etSubject, etSubSubject;
     TextView tvDate, tvNotifications;
     Spinner spinnerPriority;
     Button btnAdd;
-    String theChoice;
-    List<String> priority;
+
+    int notifications;
+    int priority;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
         init();
         setSpinner();
     }
@@ -49,40 +51,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         btnAdd.setOnClickListener(this);
     }
 
-    public void setSpinner() {
-        priority = new ArrayList<>();
-        priority.add("נמוכה");
-        priority.add("בנונית");
-        priority.add("גבוהה");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, priority);
-        spinnerPriority.setAdapter(arrayAdapter);
-        spinnerPriority.setOnItemSelectedListener(this);
-    }
-
-    public void setTvDate() {
-        Calendar systemCalender = Calendar.getInstance();
-        int nowYear = systemCalender.get(Calendar.YEAR);
-        int nowMonth = systemCalender.get(Calendar.MONTH);
-        int nowDay = systemCalender.get(Calendar.DAY_OF_MONTH);
-
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new SetDate(), nowYear, nowMonth, nowDay);
-        datePickerDialog.show();
-    }
-
-    public void setNotifications() {
-        String[] notifications = {"כל יום", "כל יום חול(ראשון-חמישי)", "פעם בשבוע", " פעם בשבועים", "פעם בחודש"};
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("תבחר את כמות התראות")
-                .setCancelable(true)
-                .setItems(notifications, (dialogInterface, i) -> {
-                    theChoice = notifications[i];
-                    tvNotifications.setText(theChoice);
-                });
-        builder.show();
-    }
-
     @Override
     public void onClick(View v) {
         if (v == tvDate) {
@@ -90,40 +58,69 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         } else if (v == tvNotifications) {
             setNotifications();
         } else if (btnAdd == v) {
-
+            setBtnAdd();
         }
+    }
+
+    public void setBtnAdd() {
+
+
+    }
+
+    public void setTvDate() {
+        int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+        int nowMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, this, nowYear, nowMonth, nowDay);
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        month++;
+        String str = "אתה בחרת :" + dayOfMonth + "/" + month + "/" + year % 100;
+        tvDate.setText(str);
+    }
+
+    public void setNotifications() {
+        String[] strNotifications = {"כל יום", "כל יום חול(ראשון-חמישי)", "פעם בשבוע", " פעם בשבועים", "פעם בחודש"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                .setTitle("תבחר את כמות התראות")
+                .setCancelable(true)
+                .setItems(strNotifications, (dialogInterface, i) -> {
+                    tvNotifications.setText(strNotifications[i]);
+                    notifications = i;
+                });
+        builder.show();
+    }
+
+    public void setSpinner() {
+
+        List<String> lstPriority;
+
+        lstPriority = new ArrayList<>();
+        lstPriority.add("נמוכה");
+        lstPriority.add("בנונית");
+        lstPriority.add("גבוהה");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lstPriority);
+        spinnerPriority.setAdapter(arrayAdapter);
+        spinnerPriority.setOnItemSelectedListener(this);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+        String item = adapterView.getItemAtPosition(i).toString();
+        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
+        priority = i;
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    public void onNothingSelected(AdapterView<?> parent) {
 
-    }
-
-
-    public class SetDate implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-            Calendar systemCalender = Calendar.getInstance();
-            int nowYear = systemCalender.get(Calendar.YEAR);
-            int nowMonth = systemCalender.get(Calendar.MONTH);
-            int nowDay = systemCalender.get(Calendar.DAY_OF_MONTH);
-
-            if (year > nowYear || (year == nowYear && monthOfYear > nowMonth) || (year == nowYear && monthOfYear == nowMonth && dayOfMonth >= nowDay)) {
-                monthOfYear++;
-                String str = "אתה בחרת :" + dayOfMonth + "/0" + monthOfYear + "/" + year % 100;
-                Toast.makeText(AddActivity.this, str, Toast.LENGTH_LONG).show();
-                tvDate.setText(str);
-            } else {
-                tvDate.setText("בחר תאריך הגשה");
-                Toast.makeText(AddActivity.this, "תבחר תאריך מאוחר מהיום", Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 }

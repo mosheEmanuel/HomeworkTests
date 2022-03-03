@@ -59,17 +59,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, AddActivity.class);
             startActivity(intent);
             animateFab();
-            Toast.makeText(this, "click 1", Toast.LENGTH_SHORT).show();
         } else if (v == fab2) {
             animateFab();
-            Toast.makeText(this, "click 2", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void setTextOpen() {
-        SharedPreferences sp = getSharedPreferences("details",0);
-        String strFirsName = sp.getString("FirsName",null);
-        String strLastName = sp.getString("LastName",null);
+        SharedPreferences sp = getSharedPreferences("details", 0);
+        String strFirsName = sp.getString("FirsName", null);
+        String strLastName = sp.getString("LastName", null);
         tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
 
 

@@ -38,7 +38,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
         holder.tvSubject.setText(product.getSubject());
         holder.tvPage.setText(product.getPage());
         holder.tvDate.setText(product.getDate());
-        holder.tvPriority.setText(product.getDate());
+        holder.tvPriority.setText(product.getPriority());
 
     }
 
