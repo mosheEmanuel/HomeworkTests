@@ -13,6 +13,8 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_HOMEWORK = "tblHomework";
     public static final int DATABASEVERSION = 1;
 
+    public static final String COLUMN_ID = "HomeworkId";
+
     public static final String COLUMN_SUBJECT = "subject";
     public static final String COLUMN_PAGE = "page";
     public static final String COLUMN_SUB_SUBJECT = "subSubject";
@@ -32,8 +34,8 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     String[] allColumns = {SqlLiteHelper.COLUMN_SUBJECT, SqlLiteHelper.COLUMN_PAGE, SqlLiteHelper.COLUMN_SUB_SUBJECT, SqlLiteHelper.COLUMN_NOTIFICATION,
             SqlLiteHelper.COLUMN_PRIORITY, SqlLiteHelper.COLUMN_YEAR, SqlLiteHelper.COLUMN_MONTH, SqlLiteHelper.COLUMN_DAYOfMONTH};
 
-    public SqlLiteHelper( Context context) {
-       super(context, DATABASENAME, null, DATABASEVERSION);
+    public SqlLiteHelper(Context context) {
+        super(context, DATABASENAME, null, DATABASEVERSION);
     }
 
     @Override
@@ -48,9 +50,20 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void open()
-    {
-        database=this.getWritableDatabase();
+    public void open() {
+        database = this.getWritableDatabase();
         Log.d("data1", "Database connection open");
+    }
+
+    public  Homework createHomework1(Homework homework) {
+        String str_sql = "INSERT INTO " + SqlLiteHelper.TABLE_HOMEWORK + "(" + COLUMN_SUBJECT + ","
+                + COLUMN_PAGE + "," + COLUMN_SUB_SUBJECT + "," + COLUMN_NOTIFICATION + "," + COLUMN_PRIORITY + ","
+                + COLUMN_YEAR + "," + COLUMN_MONTH + "," + COLUMN_DAYOfMONTH + ")"
+                + " VALUES ('" + homework.getSubject() + "','" + homework.getPage() + "','" + homework.getSubSubject() + "','"
+                + homework.getNotifications() + "','" + homework.getPriority() + "','" + homework.getYear() + "','" + homework.getMonth() + "','" + homework.getDayOfMonth() + "')";
+
+        database.execSQL(str_sql);
+
+        return homework;
     }
 }
