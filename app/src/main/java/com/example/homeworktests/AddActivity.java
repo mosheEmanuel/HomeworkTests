@@ -76,7 +76,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         page = etPage.getText().toString();
         Homework homework = new Homework(page, subject, subSubject, notifications, priority, year, month, dayOfMonth);
         SqlLiteHelper sql = new SqlLiteHelper(this);
+        sql.open();
         sql.createHomework1(homework);
+        sql.close();
+        finish();
     }
 
     public void setTvDate() {

@@ -1,6 +1,7 @@
 package com.example.homeworktests;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -27,11 +28,11 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     SQLiteDatabase database;
 
 
-    private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_SUBJECT + " VARCHAR, "
+    private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
             + COLUMN_PAGE + " VARCHAR, " + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_NOTIFICATION + " INTEGER, " + COLUMN_PRIORITY + " INTEGER, "
             + COLUMN_YEAR + " INTEGER, " + COLUMN_MONTH + " INTEGER, " + COLUMN_DAYOfMONTH + " INTEGER " + ");";
 
-    String[] allColumns = {SqlLiteHelper.COLUMN_SUBJECT, SqlLiteHelper.COLUMN_PAGE, SqlLiteHelper.COLUMN_SUB_SUBJECT, SqlLiteHelper.COLUMN_NOTIFICATION,
+    String[] allColumns = {SqlLiteHelper.COLUMN_ID,SqlLiteHelper.COLUMN_SUBJECT, SqlLiteHelper.COLUMN_PAGE, SqlLiteHelper.COLUMN_SUB_SUBJECT, SqlLiteHelper.COLUMN_NOTIFICATION,
             SqlLiteHelper.COLUMN_PRIORITY, SqlLiteHelper.COLUMN_YEAR, SqlLiteHelper.COLUMN_MONTH, SqlLiteHelper.COLUMN_DAYOfMONTH};
 
     public SqlLiteHelper(Context context) {
@@ -40,6 +41,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        Log.d("data1",CREATE_TABLE_HOMEWORK);
         db.execSQL(CREATE_TABLE_HOMEWORK);
         Log.d("data1", "Table customer created");
     }
@@ -55,7 +57,10 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         Log.d("data1", "Database connection open");
     }
 
-    public  Homework createHomework1(Homework homework) {
+    public Homework createHomework1(Homework homework) {
+
+        long lastId = -1;
+
         String str_sql = "INSERT INTO " + SqlLiteHelper.TABLE_HOMEWORK + "(" + COLUMN_SUBJECT + ","
                 + COLUMN_PAGE + "," + COLUMN_SUB_SUBJECT + "," + COLUMN_NOTIFICATION + "," + COLUMN_PRIORITY + ","
                 + COLUMN_YEAR + "," + COLUMN_MONTH + "," + COLUMN_DAYOfMONTH + ")"
@@ -63,6 +68,16 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
                 + homework.getNotifications() + "','" + homework.getPriority() + "','" + homework.getYear() + "','" + homework.getMonth() + "','" + homework.getDayOfMonth() + "')";
 
         database.execSQL(str_sql);
+
+        str_sql = "SELECT " + SqlLiteHelper.COLUMN_ID + " from " + SqlLiteHelper.TABLE_HOMEWORK + "  order by " + SqlLiteHelper.COLUMN_ID + " DESC limit 1\n";
+        Cursor c = database.rawQuery(str_sql, null);
+
+        if (c != null && c.moveToFirst()) {
+            lastId = c.getLong(0); //The 0 is the column index, we only have 1 column, so the index is 0
+            Log.d("data1", "" + lastId);
+        }
+
+        homework.setHomeworkId(lastId);
 
         return homework;
     }

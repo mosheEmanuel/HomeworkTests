@@ -18,6 +18,8 @@ public class Homework {
     private int year;
     private int month;
     private int dayOfMonth;
+    private long HomeworkId;
+
 
     // בשביל ListView
 
@@ -29,6 +31,7 @@ public class Homework {
         this.priority = priority;
     }
 
+
     // בשביל SQL
     public Homework(String page, String subject, String subSubject, int notifications, int numPriority, int year, int month, int dayOfMonth) {
         this.page = page;
@@ -39,6 +42,7 @@ public class Homework {
         this.year = year;
         this.month = month;
         this.dayOfMonth = dayOfMonth;
+        this.HomeworkId = 0;
     }
 
 
@@ -134,5 +138,12 @@ public class Homework {
         this.priority = priority;
     }
 
+    public long getHomeworkId() {
+        return HomeworkId;
+    }
+
+    public void setHomeworkId(long homeworkId) {
+        HomeworkId = homeworkId;
+    }
 
 }
