@@ -26,7 +26,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     Spinner spinnerPriority;
     Button btnAdd;
 
-
     String subject;
     String subSubject;
     String page;
@@ -120,6 +119,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         List<String> lstPriority;
 
         lstPriority = new ArrayList<>();
+        lstPriority.add("תבחר עדיפות");
         lstPriority.add("נמוכה");
         lstPriority.add("בנונית");
         lstPriority.add("גבוהה");
@@ -131,9 +131,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String item = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(this, item, Toast.LENGTH_SHORT).show();
-        priority = i;
+        if (i != 0) {
+//            String item = adapterView.getItemAtPosition(i).toString();
+            priority = i;
+        } else
+            Toast.makeText(this, "תבחר עדיפות", Toast.LENGTH_SHORT).show();
     }
 
     @Override
