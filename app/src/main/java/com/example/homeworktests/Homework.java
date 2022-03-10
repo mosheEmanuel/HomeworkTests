@@ -18,7 +18,7 @@ public class Homework {
     private int year;
     private int month;
     private int dayOfMonth;
-    private long HomeworkId;
+    private long Id;
 
 
     // בשביל ListView
@@ -42,7 +42,7 @@ public class Homework {
         this.year = year;
         this.month = month;
         this.dayOfMonth = dayOfMonth;
-        this.HomeworkId = 0;
+        this.Id = 0;
     }
 
 
@@ -138,12 +138,12 @@ public class Homework {
         this.priority = priority;
     }
 
-    public long getHomeworkId() {
-        return HomeworkId;
+    public long getId() {
+        return Id;
     }
 
-    public void setHomeworkId(long homeworkId) {
-        HomeworkId = homeworkId;
+    public void setId(long id) {
+        this.Id = id;
     }
 
 }

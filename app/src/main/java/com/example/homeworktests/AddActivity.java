@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +21,8 @@ import java.util.List;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    EditText etSubject, etSubSubject, etPage;
+    AutoCompleteTextView acSubject;
+    EditText etSubSubject, etPage;
     TextView tvDate, tvNotifications;
     Spinner spinnerPriority;
     Button btnAdd;
@@ -41,11 +42,12 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         setContentView(R.layout.activity_add);
 
         init();
+        setAutoComplete();
         setSpinner();
     }
 
     public void init() {
-        etSubject = findViewById(R.id.etSubject);
+        acSubject = findViewById(R.id.acSubject);
         etSubSubject = findViewById(R.id.etSubSubject);
         etPage = findViewById(R.id.etPage);
         tvDate = findViewById(R.id.tvDate);
@@ -57,6 +59,27 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         tvNotifications.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
     }
+
+    public void setAutoComplete() {
+        String[] strAutoComplete = new String[]{"מתמטיקה", "אנגלית", "לשון", "עברית", "אזרחות", "גמרא", "תנך", "מחשבים"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, strAutoComplete);
+        acSubject.setAdapter(adapter);
+
+    }
+
+    public void setSpinner() {
+
+        List<String> lstPriority = new ArrayList<>();
+        lstPriority.add("תבחר עדיפות");
+        lstPriority.add("נמוכה");
+        lstPriority.add("בנונית");
+        lstPriority.add("גבוהה");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lstPriority);
+        spinnerPriority.setAdapter(arrayAdapter);
+        spinnerPriority.setOnItemSelectedListener(this);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -70,13 +93,14 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void setBtnAdd() {
-        subject = etSubject.getText().toString();
+
+        subject = acSubject.getText().toString();
         subSubject = etSubSubject.getText().toString();
         page = etPage.getText().toString();
         Homework homework = new Homework(page, subject, subSubject, notifications, priority, year, month, dayOfMonth);
         SqlLiteHelper sql = new SqlLiteHelper(this);
         sql.open();
-        sql.createHomework1(homework);
+        sql.createHomework(homework);
         sql.close();
         finish();
     }
@@ -114,28 +138,13 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         builder.show();
     }
 
-    public void setSpinner() {
-
-        List<String> lstPriority;
-
-        lstPriority = new ArrayList<>();
-        lstPriority.add("תבחר עדיפות");
-        lstPriority.add("נמוכה");
-        lstPriority.add("בנונית");
-        lstPriority.add("גבוהה");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lstPriority);
-        spinnerPriority.setAdapter(arrayAdapter);
-        spinnerPriority.setOnItemSelectedListener(this);
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if (i != 0) {
 //            String item = adapterView.getItemAtPosition(i).toString();
             priority = i;
-        } else
-            Toast.makeText(this, "תבחר עדיפות", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

@@ -15,8 +15,8 @@
         android:layout_marginTop="10dp"
         tools:ignore="MissingClass">
 
-        <EditText
-            android:id="@+id/etSubject"
+        <AutoCompleteTextView
+            android:id="@+id/acSubject"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="המקצוע"
