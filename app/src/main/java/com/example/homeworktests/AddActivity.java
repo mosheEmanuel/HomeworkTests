@@ -97,6 +97,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         subject = acSubject.getText().toString();
         subSubject = etSubSubject.getText().toString();
         page = etPage.getText().toString();
+
         Homework homework = new Homework(page, subject, subSubject, notifications, priority, year, month, dayOfMonth);
         SqlLiteHelper sql = new SqlLiteHelper(this);
         sql.open();
@@ -145,6 +146,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 //            String item = adapterView.getItemAtPosition(i).toString();
             priority = i;
         }
+        else
+            priority =-1;
     }
 
     @Override
