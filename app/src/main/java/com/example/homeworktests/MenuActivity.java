@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +17,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
+    ImageButton ibFilter;
+    Button btnAll, btnTest, btnHomeWork;
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
-    boolean isOpen = false;
     TextView tvOpen;
-
+    boolean isOpen = false, isEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     public void init() {
 
+        ibFilter = findViewById(R.id.ibFilter);
+
+        btnAll = findViewById(R.id.btnAll);
+        btnTest = findViewById(R.id.btnTest);
+        btnHomeWork = findViewById(R.id.btnHomeWork);
+
         tvOpen = findViewById(R.id.tvOpen);
+
         fab = findViewById(R.id.fab);
         fab1 = findViewById(R.id.fab1);
         fab2 = findViewById(R.id.fab2);
@@ -41,6 +51,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
+
+        ibFilter.setOnClickListener(this);
+
+        btnAll.setOnClickListener(this);
+        btnTest.setOnClickListener(this);
+        btnHomeWork.setOnClickListener(this);
 
         fab.setOnClickListener(this);
         fab1.setOnClickListener(this);
@@ -69,8 +85,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         String strFirsName = sp.getString("FirsName", null);
         String strLastName = sp.getString("LastName", null);
         tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
-
-
     }
 
     @Override
@@ -104,6 +118,4 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             isOpen = true;
         }
     }
-
-
 }

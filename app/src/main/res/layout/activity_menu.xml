@@ -20,24 +20,28 @@
         android:visibility="invisible">
 
         <ImageButton
+            android:id="@+id/ibFilter"
             android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_filter_list_24" />
         <Button
+            android:id="@+id/btnAll"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="הכל" />
 
         <Button
+            android:id="@+id/btnTest"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="מבחן" />
 
         <Button
+            android:id="@+id/btnHomeWork"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
