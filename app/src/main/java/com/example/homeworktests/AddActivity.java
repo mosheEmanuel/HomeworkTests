@@ -30,11 +30,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     String subject;
     String subSubject;
     String page;
+    String date;
     int notifications;
     int priority;
-    int year;
-    int month;
-    int dayOfMonth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +97,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         subSubject = etSubSubject.getText().toString();
         page = etPage.getText().toString();
 
-        Homework homework = new Homework(page, subject, subSubject, notifications, priority, year, month, dayOfMonth);
+        Homework homework = new Homework(subject, page, subSubject, date, notifications, priority);
         SqlLiteHelper sql = new SqlLiteHelper(this);
         sql.open();
         sql.createHomework(homework);
@@ -118,11 +117,16 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        this.year = year;
-        this.month = month;
-        this.dayOfMonth = dayOfMonth;
+
+
         month++;
-        String str = "אתה בחרת :" + dayOfMonth + "/" + month + "/" + year % 100;
+        if (month > 9)
+            date = dayOfMonth + "/" + month + "/" + (year % 100);
+        else
+            date = dayOfMonth + "/0" + month + "/" + (year % 100);
+
+
+        String str = "אתה בחרת :" +date;
         tvDate.setText(str);
     }
 
@@ -145,9 +149,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         if (i != 0) {
 //            String item = adapterView.getItemAtPosition(i).toString();
             priority = i;
-        }
-        else
-            priority =-1;
+        } else
+            priority = -1;
     }
 
     @Override

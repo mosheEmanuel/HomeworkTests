@@ -22,12 +22,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fab, fab1, fab2;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     TextView tvOpen;
-    boolean isOpen = false, isEmpty;
+    boolean isOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        SqlLiteHelper sql = new SqlLiteHelper(this);
 
         init();
         setTextOpen();

@@ -1,10 +1,14 @@
 package com.example.homeworktests;
 
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 public class SqlLiteHelper extends SQLiteOpenHelper {
 
@@ -19,19 +23,17 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PAGE = "page";
     public static final String COLUMN_NOTIFICATION = "notifications";
     public static final String COLUMN_PRIORITY = "priority";
-    public static final String COLUMN_YEAR = "year";
-    public static final String COLUMN_MONTH = "month";
-    public static final String COLUMN_DAYOfMONTH = "dayOfMonth";
+    public static final String COLUMN_DATE = "date";
 
     SQLiteDatabase database;
 
 
     private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
             + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_NOTIFICATION + " INTEGER, " + COLUMN_PRIORITY + " INTEGER, "
-            + COLUMN_YEAR + " INTEGER, " + COLUMN_MONTH + " INTEGER, " + COLUMN_DAYOfMONTH + " INTEGER " + ");";
+            + COLUMN_DATE + " VARCHAR " + ");";
 
     String[] allColumns = {COLUMN_ID, COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_PAGE, COLUMN_NOTIFICATION,
-            COLUMN_PRIORITY, COLUMN_YEAR, COLUMN_MONTH, COLUMN_DAYOfMONTH};
+            COLUMN_PRIORITY, COLUMN_DATE};
 
     public SqlLiteHelper(Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
@@ -80,13 +82,37 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_PAGE, homework.getPage());
         values.put(COLUMN_NOTIFICATION, homework.getNotifications());
         values.put(COLUMN_PRIORITY, homework.getPriority());
-        values.put(COLUMN_YEAR, homework.getYear());
-        values.put(COLUMN_MONTH, homework.getDayOfMonth());
-        values.put(COLUMN_DAYOfMONTH, homework.getDayOfMonth());
+        values.put(COLUMN_DATE, homework.getDate());
 
         long insertId = database.insert(TABLE_HOMEWORK, null, values);
         homework.setId(insertId);
 
         return homework;
     }
+
+    public ArrayList<Homework> getAllHomework() {
+        ArrayList<Homework> l = new ArrayList<Homework>();
+        String query = "select * from " + TABLE_HOMEWORK;
+        Cursor cursor = database.rawQuery(query, null);
+
+        if (cursor.getCount() > 0) {
+
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
+                String subject = cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
+                String subSubject = cursor.getString(cursor.getColumnIndex(COLUMN_SUB_SUBJECT));
+                String page = cursor.getString(cursor.getColumnIndex(COLUMN_PAGE));
+                String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
+                int notifications = cursor.getInt(cursor.getColumnIndex(COLUMN_NOTIFICATION));
+                int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
+
+                Homework homework = new Homework(id,subject, subSubject, page, date, notifications, priority);
+                l.add(homework);
+            }
+
+        }
+        return l;
+    }
+
 }
+

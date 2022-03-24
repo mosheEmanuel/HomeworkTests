@@ -5,19 +5,18 @@ import android.graphics.Bitmap;
 public class Homework {
     // בשביל ListView
     private Bitmap bitmap;
-    private String date;
     private String priority;
+
     // בשביל שניהם
     private String page;
     private String subject;
+    private String date;
 
     // בשביל SQL
     private String subSubject;
     private int notifications;
     private int numPriority;
-    private int year;
-    private int month;
-    private int dayOfMonth;
+
     private long Id;
 
 
@@ -33,16 +32,23 @@ public class Homework {
 
 
     // בשביל SQL
-    public Homework(String page, String subject, String subSubject, int notifications, int numPriority, int year, int month, int dayOfMonth) {
+    public Homework(String subject, String subSubject, String page, String date, int notifications, int numPriority) {
         this.page = page;
         this.subject = subject;
         this.subSubject = subSubject;
         this.notifications = notifications;
         this.numPriority = numPriority;
-        this.year = year;
-        this.month = month;
-        this.dayOfMonth = dayOfMonth;
+        this.date = date;
         this.Id = 0;
+    }
+    public Homework(long id ,String subject, String subSubject, String page, String date, int notifications, int numPriority) {
+        this.page = page;
+        this.subject = subject;
+        this.subSubject = subSubject;
+        this.notifications = notifications;
+        this.numPriority = numPriority;
+        this.date = date;
+        this.Id = id;
     }
 
 
@@ -62,7 +68,6 @@ public class Homework {
         this.notifications = notifications;
     }
 
-
     public int getNumPriority() {
         return numPriority;
     }
@@ -70,33 +75,6 @@ public class Homework {
     public void setNumPriority(int numPriority) {
         this.numPriority = numPriority;
     }
-
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDayOfMonth() {
-        return dayOfMonth;
-    }
-
-    public void setDayOfMonth(int dayOfMonth) {
-        this.dayOfMonth = dayOfMonth;
-    }
-
 
     public Bitmap getBitmap() {
         return bitmap;
