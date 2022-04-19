@@ -65,12 +65,9 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
 //                + COLUMN_YEAR + "," + COLUMN_MONTH + "," + COLUMN_DAYOfMONTH + ")"
 //                + " VALUES ('" + homework.getSubject() + "','" + homework.getPage() + "','" + homework.getSubSubject() + "','"
 //                + homework.getNotifications() + "','" + homework.getPriority() + "','" + homework.getYear() + "','" + homework.getMonth() + "','" + homework.getDayOfMonth() + "')";
-//
 //        database.execSQL(str_sql);
-//
 //        str_sql = "SELECT " + SqlLiteHelper.COLUMN_ID + " from " + SqlLiteHelper.TABLE_HOMEWORK + "  order by " + SqlLiteHelper.COLUMN_ID + " DESC limit 1\n";
 //        Cursor c = database.rawQuery(str_sql, null);
-//
 //        if (c != null && c.moveToFirst()) {
 //            lastId = c.getLong(0); //The 0 is the column index, we only have 1 column, so the index is 0
 //            Log.d("data1", "" + lastId);
@@ -106,13 +103,22 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
                 int notifications = cursor.getInt(cursor.getColumnIndex(COLUMN_NOTIFICATION));
                 int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
 
-                Homework homework = new Homework(id,subject, subSubject, page, date, notifications, priority);
+                Homework homework = new Homework(id, subject, subSubject, page, date, notifications, priority);
                 l.add(homework);
             }
-
         }
         return l;
     }
 
+    public boolean isEmpty() {
+        boolean rowExists;
+        Cursor mCursor = database.rawQuery("select * from " + TABLE_HOMEWORK, null);
+        if (mCursor.getCount() == 0)
+            rowExists = false;
+        else
+            rowExists = true;
+
+        return rowExists;
+    }
 }
 

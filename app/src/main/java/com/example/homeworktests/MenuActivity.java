@@ -1,7 +1,5 @@
 package com.example.homeworktests;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,16 +8,20 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
+    LinearLayout linearLayout;
     ImageButton ibFilter;
     Button btnAll, btnTest, btnHomeWork;
-    FloatingActionButton fab, fab1, fab2;
+    FloatingActionButton fab, fabTest, fabHomeWork;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     TextView tvOpen;
     boolean isOpen = false;
@@ -28,13 +30,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        SqlLiteHelper sql = new SqlLiteHelper(this);
 
         init();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         setTextOpen();
     }
 
     public void init() {
+        linearLayout = findViewById(R.id.linearLayout);
 
         ibFilter = findViewById(R.id.ibFilter);
 
@@ -43,10 +50,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         btnHomeWork = findViewById(R.id.btnHomeWork);
 
         tvOpen = findViewById(R.id.tvOpen);
-
         fab = findViewById(R.id.fab);
-        fab1 = findViewById(R.id.fab1);
-        fab2 = findViewById(R.id.fab2);
+        fabTest = findViewById(R.id.fabTest);
+        fabHomeWork = findViewById(R.id.fabHomeWork);
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
@@ -60,43 +66,54 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         btnHomeWork.setOnClickListener(this);
 
         fab.setOnClickListener(this);
-        fab1.setOnClickListener(this);
-        fab2.setOnClickListener(this);
+        fabTest.setOnClickListener(this);
+        fabHomeWork.setOnClickListener(this);
 
         fab.setOnLongClickListener(this);
-        fab1.setOnLongClickListener(this);
-        fab2.setOnLongClickListener(this);
+        fabTest.setOnLongClickListener(this);
+        fabHomeWork.setOnLongClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == fab) {
             animateFab();
-        } else if (v == fab1) {
+        } else if (v == fabTest) {
             Intent intent = new Intent(this, AddActivity.class);
             startActivity(intent);
             animateFab();
-        } else if (v == fab2) {
+        } else if (v == fabHomeWork) {
             animateFab();
         }
     }
 
     public void setTextOpen() {
-        SharedPreferences sp = getSharedPreferences("details", 0);
-        String strFirsName = sp.getString("FirsName", null);
-        String strLastName = sp.getString("LastName", null);
-        tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
+        SqlLiteHelper sql = new SqlLiteHelper(this);
+        sql.open();
+        if (!sql.isEmpty()) {
+            tvOpen.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.INVISIBLE);
+            SharedPreferences sp = getSharedPreferences("details", 0);
+            String strFirsName = sp.getString("FirsName", null);
+            String strLastName = sp.getString("LastName", null);
+            tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
+        } else {
+            tvOpen.setVisibility(View.INVISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
+        }
+        sql.close();
+
     }
 
     @Override
     public boolean onLongClick(View v) {
 
-        if (v == fab1) {
-            Toast.makeText(this, "הוספת שעורי בית", Toast.LENGTH_SHORT).show();
+        if (v == fabTest) {
+            Toast.makeText(this, "כפתור להוספת שעורי בית", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if (v == fab2) {
-            Toast.makeText(this, "הוספת מבחן", Toast.LENGTH_SHORT).show();
+        if (v == fabHomeWork) {
+            Toast.makeText(this, "כפתור להוספת מבחן", Toast.LENGTH_SHORT).show();
             return true;
         }
         return false;
@@ -105,17 +122,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private void animateFab() {
         if (isOpen) {
             fab.startAnimation(rotateForward);
-            fab1.startAnimation(fabClose);
-            fab2.startAnimation(fabClose);
-            fab1.setClickable(false);
-            fab2.setClickable(false);
+            fabTest.startAnimation(fabClose);
+            fabHomeWork.startAnimation(fabClose);
+            fabTest.setClickable(false);
+            fabHomeWork.setClickable(false);
             isOpen = false;
         } else {
             fab.startAnimation(rotateBackward);
-            fab1.startAnimation(fabOpen);
-            fab2.startAnimation(fabOpen);
-            fab1.setClickable(true);
-            fab2.setClickable(true);
+            fabTest.startAnimation(fabOpen);
+            fabHomeWork.startAnimation(fabOpen);
+            fabTest.setClickable(true);
+            fabHomeWork.setClickable(true);
             isOpen = true;
         }
     }
