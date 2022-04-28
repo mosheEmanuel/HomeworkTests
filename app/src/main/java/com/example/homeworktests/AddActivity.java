@@ -12,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +34,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     String date;
     int notifications;
     int priority;
+
 
 
     @Override
@@ -92,17 +94,18 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void setBtnAdd() {
+        if (priority > 0) {
+            subject = acSubject.getText().toString();
+            subSubject = etSubSubject.getText().toString();
+            page = etPage.getText().toString();
 
-        subject = acSubject.getText().toString();
-        subSubject = etSubSubject.getText().toString();
-        page = etPage.getText().toString();
-
-        Homework homework = new Homework(subject, page, subSubject, date, notifications, priority);
-        SqlLiteHelper sql = new SqlLiteHelper(this);
-        sql.open();
-        sql.createHomework(homework);
-        sql.close();
-        finish();
+            Homework homework = new Homework(subject, page, subSubject, date, notifications, priority);
+            SqlLiteHelper sql = new SqlLiteHelper(this);
+            sql.open();
+            sql.createHomework(homework);
+            sql.close();
+            finish();
+        } else Toast.makeText(this, "לא הוספת את כל הפרטים", Toast.LENGTH_SHORT).show();
     }
 
     public void setTvDate() {
@@ -126,7 +129,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             date = dayOfMonth + "/0" + month + "/" + (year % 100);
 
 
-        String str = "אתה בחרת :" +date;
+        String str = "אתה בחרת :" + date;
         tvDate.setText(str);
     }
 

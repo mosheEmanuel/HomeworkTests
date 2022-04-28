@@ -6,15 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
@@ -23,6 +25,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     TextView tvOpen;
     boolean isOpen = false;
+    ArrayList<Homework> allHomework;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void init() {
 
         ibFilter = findViewById(R.id.ibFilter);
-        ;
 
         tvOpen = findViewById(R.id.tvOpen);
         fab = findViewById(R.id.fab);
@@ -54,6 +57,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         ibFilter.setOnClickListener(this);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fab.setOnClickListener(this);
         fabTest.setOnClickListener(this);
@@ -72,6 +79,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this, AddActivity.class);
             startActivity(intent);
             animateFab();
+            setRecyclerView();
         } else if (v == fabHomeWork) {
             animateFab();
         }
@@ -90,9 +98,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             tvOpen.setVisibility(View.INVISIBLE);
             ibFilter.setVisibility(View.VISIBLE);
+            setRecyclerView();
         }
         sql.close();
 
+    }
+
+    public void setRecyclerView() {
+        SqlLiteHelper sql = new SqlLiteHelper(this);
+        sql.open();
+        allHomework = sql.getAllHomework();
+        sql.close();
+        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(this, allHomework);
+        recyclerView.setAdapter(homeworkAdapter);
     }
 
     @Override

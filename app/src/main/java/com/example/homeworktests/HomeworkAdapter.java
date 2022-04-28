@@ -34,7 +34,6 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
     @Override
     public void onBindViewHolder(@NonNull HomeworkTViewHolder holder, int position) {
         Homework product = productList.get(position);
-        holder.ivPic.setImageBitmap(product.getBitmap());
         holder.tvSubject.setText(product.getSubject());
         holder.tvPage.setText(product.getPage());
         holder.tvDate.setText(product.getDate());
@@ -49,12 +48,10 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
 
     class HomeworkTViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView ivPic;
         TextView tvPage, tvSubject, tvDate ,tvPriority;
 
         public HomeworkTViewHolder(View itemView) {
             super(itemView);
-            ivPic = itemView.findViewById(R.id.ivPic);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvPage = itemView.findViewById(R.id.tvPage);
             tvSubject = itemView.findViewById(R.id.tvSubject);

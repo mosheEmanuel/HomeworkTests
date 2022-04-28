@@ -92,18 +92,21 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         String query = "select * from " + TABLE_HOMEWORK;
         Cursor cursor = database.rawQuery(query, null);
 
-        if (cursor.getCount() > 0) {
+        if (cursor.getCount() >= 0) {
 
             while (cursor.moveToNext()) {
-                long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
                 String subject = cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
-                String subSubject = cursor.getString(cursor.getColumnIndex(COLUMN_SUB_SUBJECT));
                 String page = cursor.getString(cursor.getColumnIndex(COLUMN_PAGE));
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
-                int notifications = cursor.getInt(cursor.getColumnIndex(COLUMN_NOTIFICATION));
                 int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
-
-                Homework homework = new Homework(id, subject, subSubject, page, date, notifications, priority);
+                String sPriority;
+                if (priority == 1)
+                    sPriority = "נמוכה";
+                else if (priority == 2)
+                    sPriority = "בנונית";
+                else
+                    sPriority = "גבוהה";
+                Homework homework = new Homework(page, subject, date, sPriority);
                 l.add(homework);
             }
         }

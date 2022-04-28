@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 
 public class Homework {
     // בשביל ListView
-    private Bitmap bitmap;
     private String priority;
 
     // בשביל שניהם
@@ -22,8 +21,7 @@ public class Homework {
 
     // בשביל ListView
 
-    public Homework(Bitmap bitmap, String page, String subject, String date, String priority) {
-        this.bitmap = bitmap;
+    public Homework( String page, String subject, String date, String priority) {
         this.page = page;
         this.subject = subject;
         this.date = date;
@@ -76,13 +74,6 @@ public class Homework {
         this.numPriority = numPriority;
     }
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
-
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
-    }
 
     public String getPage() {
         return page;
