@@ -5,59 +5,30 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
+        android:layout_below="@+id/ibFilter"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp" />
 
-
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:visibility="invisible">
-
-        <ImageButton
-            android:id="@+id/ibFilter"
-            android:layout_gravity="center"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_filter_list_24" />
-        <Button
-            android:id="@+id/btnAll"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="הכל" />
-
-        <Button
-            android:id="@+id/btnTest"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="מבחן" />
-
-        <Button
-            android:id="@+id/btnHomeWork"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="שיעורי בית" />
-    </LinearLayout>
+    <ImageButton
+        android:visibility="invisible"
+        android:id="@+id/ibFilter"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_baseline_filter_list_24" />
 
     <TextView
+        android:layout_below="@+id/ibFilter"
         android:id="@+id/tvOpen"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/linearLayout"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="40sp"
-        android:visibility="invisible"/>
+        android:visibility="invisible" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -90,6 +61,5 @@
         android:layout_marginBottom="90dp"
         android:src="@drawable/icons8_test_64"
         android:visibility="invisible" />
-
 
 </RelativeLayout>

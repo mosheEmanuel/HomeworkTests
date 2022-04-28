@@ -18,9 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
-    LinearLayout linearLayout;
     ImageButton ibFilter;
-    Button btnAll, btnTest, btnHomeWork;
     FloatingActionButton fab, fabTest, fabHomeWork;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     TextView tvOpen;
@@ -41,13 +39,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void init() {
-        linearLayout = findViewById(R.id.linearLayout);
 
         ibFilter = findViewById(R.id.ibFilter);
-
-        btnAll = findViewById(R.id.btnAll);
-        btnTest = findViewById(R.id.btnTest);
-        btnHomeWork = findViewById(R.id.btnHomeWork);
+        ;
 
         tvOpen = findViewById(R.id.tvOpen);
         fab = findViewById(R.id.fab);
@@ -60,10 +54,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
         ibFilter.setOnClickListener(this);
-
-        btnAll.setOnClickListener(this);
-        btnTest.setOnClickListener(this);
-        btnHomeWork.setOnClickListener(this);
 
         fab.setOnClickListener(this);
         fabTest.setOnClickListener(this);
@@ -92,14 +82,14 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         sql.open();
         if (!sql.isEmpty()) {
             tvOpen.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(View.INVISIBLE);
+            ibFilter.setVisibility(View.INVISIBLE);
             SharedPreferences sp = getSharedPreferences("details", 0);
             String strFirsName = sp.getString("FirsName", null);
             String strLastName = sp.getString("LastName", null);
             tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
         } else {
             tvOpen.setVisibility(View.INVISIBLE);
-            linearLayout.setVisibility(View.VISIBLE);
+            ibFilter.setVisibility(View.VISIBLE);
         }
         sql.close();
 

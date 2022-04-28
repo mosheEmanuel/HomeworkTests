@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class OpenActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText etFirsName, etLastName;
     TextView tvClass;
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_open);
 
         firstScreen();
         init();
