@@ -21,6 +21,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_SUBJECT = "subject";
     public static final String COLUMN_SUB_SUBJECT = "subSubject";
     public static final String COLUMN_PAGE = "page";
+    public static final String COLUMN_EXERCISE = "exercise";
     public static final String COLUMN_NOTIFICATION = "notifications";
     public static final String COLUMN_PRIORITY = "priority";
     public static final String COLUMN_DATE = "date";
@@ -29,11 +30,11 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
-            + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_NOTIFICATION + " INTEGER, " + COLUMN_PRIORITY + " INTEGER, "
+            + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_EXERCISE + " VARCHAR, " + COLUMN_NOTIFICATION + " INTEGER, " + COLUMN_PRIORITY + " INTEGER, "
             + COLUMN_DATE + " VARCHAR " + ");";
 
-    String[] allColumns = {COLUMN_ID, COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_PAGE, COLUMN_NOTIFICATION,
-            COLUMN_PRIORITY, COLUMN_DATE};
+    String[] allColumns = {COLUMN_ID, COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_PAGE, COLUMN_EXERCISE,
+            COLUMN_NOTIFICATION, COLUMN_PRIORITY, COLUMN_DATE};
 
     public SqlLiteHelper(Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
@@ -77,6 +78,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_SUBJECT, homework.getSubject());
         values.put(COLUMN_SUB_SUBJECT, homework.getSubSubject());
         values.put(COLUMN_PAGE, homework.getPage());
+        values.put(COLUMN_EXERCISE, homework.getExercise());
         values.put(COLUMN_NOTIFICATION, homework.getNotifications());
         values.put(COLUMN_PRIORITY, homework.getPriority());
         values.put(COLUMN_DATE, homework.getDate());
@@ -97,8 +99,10 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 String subject = cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
                 String page = cursor.getString(cursor.getColumnIndex(COLUMN_PAGE));
+                String exercise = cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE));
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
+
                 String sPriority;
                 if (priority == 1)
                     sPriority = "נמוכה";
@@ -106,7 +110,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
                     sPriority = "בנונית";
                 else
                     sPriority = "גבוהה";
-                Homework homework = new Homework(page, subject, date, sPriority);
+                Homework homework = new Homework(page, exercise, subject, date, sPriority);
                 l.add(homework);
             }
         }

@@ -23,7 +23,7 @@ import java.util.List;
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     AutoCompleteTextView acSubject;
-    EditText etSubSubject, etPage;
+    EditText etSubSubject, etPage, etExercises;
     TextView tvDate, tvNotifications;
     Spinner spinnerPriority;
     Button btnAdd;
@@ -31,10 +31,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     String subject;
     String subSubject;
     String page;
+    String exercises;
     String date;
     int notifications;
     int priority;
-
 
 
     @Override
@@ -49,11 +49,15 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     public void init() {
         acSubject = findViewById(R.id.acSubject);
+
         etSubSubject = findViewById(R.id.etSubSubject);
         etPage = findViewById(R.id.etPage);
+        etExercises = findViewById(R.id.etExercises);
+
         tvDate = findViewById(R.id.tvDate);
         tvNotifications = findViewById(R.id.tvNotifications);
         btnAdd = findViewById(R.id.btnAdd);
+
         spinnerPriority = findViewById(R.id.spinnerPriority);
 
         tvDate.setOnClickListener(this);
@@ -98,8 +102,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             subject = acSubject.getText().toString();
             subSubject = etSubSubject.getText().toString();
             page = etPage.getText().toString();
-
-            Homework homework = new Homework(subject, page, subSubject, date, notifications, priority);
+            exercises = etExercises.getText().toString();
+            Homework homework = new Homework(0, subject, page, exercises, subSubject, date, notifications, priority);
             SqlLiteHelper sql = new SqlLiteHelper(this);
             sql.open();
             sql.createHomework(homework);

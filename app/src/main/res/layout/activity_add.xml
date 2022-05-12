@@ -43,6 +43,14 @@
         android:hint="עמודים"
         android:textColorHint="#546E7A" />
 
+    <EditText
+        android:id="@+id/etExercises"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:hint="תרגלים"
+        android:textColorHint="#546E7A" />
+
     <TextView
         android:id="@+id/tvDate"
         android:layout_width="wrap_content"

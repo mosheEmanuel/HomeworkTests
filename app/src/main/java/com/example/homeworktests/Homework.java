@@ -8,6 +8,7 @@ public class Homework {
 
     // בשביל שניהם
     private String page;
+    private String exercise;
     private String subject;
     private String date;
 
@@ -21,8 +22,9 @@ public class Homework {
 
     // בשביל ListView
 
-    public Homework( String page, String subject, String date, String priority) {
+    public Homework(String page, String exercise, String subject, String date, String priority) {
         this.page = page;
+        this.exercise = exercise;
         this.subject = subject;
         this.date = date;
         this.priority = priority;
@@ -30,24 +32,18 @@ public class Homework {
 
 
     // בשביל SQL
-    public Homework(String subject, String subSubject, String page, String date, int notifications, int numPriority) {
-        this.page = page;
+    public Homework(long id,String subject, String subSubject, String page, String exercise, String date, int notifications, int numPriority) {
         this.subject = subject;
         this.subSubject = subSubject;
-        this.notifications = notifications;
-        this.numPriority = numPriority;
-        this.date = date;
-        this.Id = 0;
-    }
-    public Homework(long id ,String subject, String subSubject, String page, String date, int notifications, int numPriority) {
         this.page = page;
-        this.subject = subject;
-        this.subSubject = subSubject;
+        this.exercise = exercise;
+        this.date = date;
         this.notifications = notifications;
         this.numPriority = numPriority;
-        this.date = date;
         this.Id = id;
     }
+
+
 
 
     public String getSubSubject() {
@@ -73,7 +69,6 @@ public class Homework {
     public void setNumPriority(int numPriority) {
         this.numPriority = numPriority;
     }
-
 
     public String getPage() {
         return page;
@@ -115,4 +110,7 @@ public class Homework {
         this.Id = id;
     }
 
+    public String getExercise() { return exercise; }
+
+    public void setExercise(String exercise) { this.exercise = exercise; }
 }

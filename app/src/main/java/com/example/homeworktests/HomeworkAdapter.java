@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -16,11 +15,11 @@ import java.util.List;
 public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.HomeworkTViewHolder> {
 
     Context mCtx;
-    List<Homework> productList;
+    List<Homework> homeworkList;
 
     public HomeworkAdapter(Context mCtx, List<Homework> productList) {
         this.mCtx = mCtx;
-        this.productList = productList;
+        this.homeworkList = productList;
     }
 
     @NonNull
@@ -33,27 +32,29 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
 
     @Override
     public void onBindViewHolder(@NonNull HomeworkTViewHolder holder, int position) {
-        Homework product = productList.get(position);
-        holder.tvSubject.setText(product.getSubject());
-        holder.tvPage.setText(product.getPage());
-        holder.tvDate.setText(product.getDate());
-        holder.tvPriority.setText(product.getPriority());
+        Homework homework = homeworkList.get(position);
+        holder.tvSubject.setText(homework.getSubject());
+        holder.tvPage.setText(homework.getPage());
+        holder.tvExercise.setText(homework.getExercise());
+        holder.tvDate.setText(homework.getDate());
+        holder.tvPriority.setText(homework.getPriority());
 
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return homeworkList.size();
     }
 
-    class HomeworkTViewHolder extends RecyclerView.ViewHolder {
+    static class HomeworkTViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvPage, tvSubject, tvDate ,tvPriority;
+        TextView tvPage,tvExercise, tvSubject, tvDate ,tvPriority;
 
         public HomeworkTViewHolder(View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvPage = itemView.findViewById(R.id.tvPage);
+            tvExercise = itemView.findViewById(R.id.tvExercise);
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvPriority = itemView.findViewById(R.id.tvPriority);
 
