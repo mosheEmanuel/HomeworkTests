@@ -127,5 +127,11 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
 
         return rowExists;
     }
+
+    public long deleteByRow(long rowId) {
+        return database.delete(SqlLiteHelper.TABLE_HOMEWORK, SqlLiteHelper.COLUMN_ID + "=" + rowId, null);
+    }
+
+
 }
 
