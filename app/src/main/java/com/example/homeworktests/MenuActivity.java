@@ -166,6 +166,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             sql.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
             allHomework.remove(viewHolder.getAdapterPosition());
             homeworkAdapter.notifyDataSetChanged();
+            //
 
         }
     };
