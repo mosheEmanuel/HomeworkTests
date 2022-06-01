@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +28,16 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvOpen;
     boolean isOpen = false;
     ArrayList<Homework> allHomework;
+
     RecyclerView recyclerView;
+    HomeworkAdapter homeworkAdapter;
+
+    SqlLiteHelper sql;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-
         init();
     }
 
@@ -69,6 +74,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         fab.setOnLongClickListener(this);
         fabTest.setOnLongClickListener(this);
         fabHomeWork.setOnLongClickListener(this);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -105,12 +113,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setRecyclerView() {
-        SqlLiteHelper sql = new SqlLiteHelper(this);
+         sql = new SqlLiteHelper(this);
         sql.open();
         allHomework = sql.getAllHomework();
         sql.close();
-        HomeworkAdapter homeworkAdapter = new HomeworkAdapter(this, allHomework);
+        homeworkAdapter = new HomeworkAdapter(this, allHomework);
         recyclerView.setAdapter(homeworkAdapter);
+
     }
 
     @Override
@@ -144,4 +153,20 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             isOpen = true;
         }
     }
+
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            sql.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
+            allHomework.remove(viewHolder.getAdapterPosition());
+            homeworkAdapter.notifyDataSetChanged();
+
+        }
+    };
 }
