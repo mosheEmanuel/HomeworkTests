@@ -32,9 +32,9 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void firstScreen() {
-        sp = getSharedPreferences("isDan", 0);
-        boolean isDan = sp.getBoolean("isDan", false);
-        if (isDan) {
+        sp = getSharedPreferences("haveName", 0);
+        boolean haveName = sp.getBoolean("haveName", false);
+        if (haveName) {
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
             finish();
@@ -58,7 +58,7 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
         else if (v == btnNext) {
             if (!etLastName.toString().isEmpty() && !etFirsName.toString().isEmpty() && theChoice != null) {
                 editor = sp.edit();
-                editor.putBoolean("isDan", true);
+                editor.putBoolean("haveName", true);
                 editor.apply();
 
                 sp = getSharedPreferences("details", 0);

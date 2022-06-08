@@ -102,6 +102,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
                 String exercise = cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE));
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
+                long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
 
                 String sPriority;
                 if (priority == 1)
@@ -110,7 +111,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
                     sPriority = "בנונית";
                 else
                     sPriority = "גבוהה";
-                Homework homework = new Homework(page, exercise, subject, date, sPriority);
+                Homework homework = new Homework(id,page, exercise, subject, date, sPriority);
                 l.add(homework);
             }
         }

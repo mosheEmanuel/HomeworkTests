@@ -22,7 +22,8 @@ public class Homework {
 
     // בשביל ListView
 
-    public Homework(String page, String exercise, String subject, String date, String priority) {
+    public Homework(long id,String page, String exercise, String subject, String date, String priority) {
+        this.Id = id;
         this.page = page;
         this.exercise = exercise;
         this.subject = subject;

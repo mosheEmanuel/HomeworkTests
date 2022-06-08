@@ -163,10 +163,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            sql.open();
             sql.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
+            sql.close();
             allHomework.remove(viewHolder.getAdapterPosition());
             homeworkAdapter.notifyDataSetChanged();
-            //
+
 
         }
     };
