@@ -14,7 +14,7 @@ public class Homework {
 
     // בשביל SQL
     private String subSubject;
-    private int notifications;
+    private String notifications;
     private int numPriority;
 
     private long Id;
@@ -22,7 +22,7 @@ public class Homework {
 
     // בשביל ListView
 
-    public Homework(long id,String page, String exercise, String subject, String date, String priority) {
+    public Homework(long id, String page, String exercise, String subject, String date, String priority) {
         this.Id = id;
         this.page = page;
         this.exercise = exercise;
@@ -33,7 +33,7 @@ public class Homework {
 
 
     // בשביל SQL
-    public Homework(long id,String subject, String subSubject, String page, String exercise, String date, int notifications, int numPriority) {
+    public Homework(long id, String subject, String subSubject, String page, String exercise, String date, String notifications, int numPriority) {
         this.subject = subject;
         this.subSubject = subSubject;
         this.page = page;
@@ -45,8 +45,6 @@ public class Homework {
     }
 
 
-
-
     public String getSubSubject() {
         return subSubject;
     }
@@ -55,11 +53,11 @@ public class Homework {
         this.subSubject = subSubject;
     }
 
-    public int getNotifications() {
+    public String getNotifications() {
         return notifications;
     }
 
-    public void setNotifications(int notifications) {
+    public void setNotifications(String notifications) {
         this.notifications = notifications;
     }
 
@@ -111,7 +109,11 @@ public class Homework {
         this.Id = id;
     }
 
-    public String getExercise() { return exercise; }
+    public String getExercise() {
+        return exercise;
+    }
 
-    public void setExercise(String exercise) { this.exercise = exercise; }
+    public void setExercise(String exercise) {
+        this.exercise = exercise;
+    }
 }

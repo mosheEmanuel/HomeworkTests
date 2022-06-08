@@ -14,10 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,13 +27,16 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     TextView tvDate, tvNotifications;
     Spinner spinnerPriority;
     Button btnAdd;
+    boolean[] checkedDays;
+    String daysToNotify;
+
 
     String subject;
     String subSubject;
     String page;
     String exercises;
     String date;
-    int notifications;
+    String notifications;
     int priority;
 
 
@@ -66,6 +66,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         tvDate.setOnClickListener(this);
         tvNotifications.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
+        checkedDays = new boolean[]{false, false, false, false, false, false};
     }
 
     public void setAutoComplete() {
@@ -128,7 +129,6 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-
         month++;
         if (month > 9)
             date = dayOfMonth + "/" + month + "/" + (year % 100);
@@ -141,16 +141,27 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     }
 
     public void setNotifications() {
-        String[] strNotifications = {"כל יום", "כל יום חול(ראשון-חמישי)", "פעם בשבוע", " פעם בשבועים", "פעם בחודש"};
-
+        daysToNotify = "";
+        String[] strNotifications = {"יום ראשון", "יום שני", "יום שלישי", "יום רביעי", "יום חמישי", "יום שישי"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("תבחר את כמות התראות")
-                .setCancelable(true)
-                .setItems(strNotifications, (dialogInterface, i) -> {
-                    tvNotifications.setText(strNotifications[i]);
-                    notifications = i;
+                .setTitle("תבחר את ימי התראות")
+                .setMultiChoiceItems(strNotifications, checkedDays, (dialogInterface, i, b) -> {
+                    if (b) {
+                        checkedDays[i] = true;
+                    } else checkedDays[i] = false;
+
+                }).setPositiveButton("קבע", (dialogInterface, i) -> {
+                    for (int j = 0; j < checkedDays.length; j++) {
+                        if (checkedDays[j]) {
+                            daysToNotify += j;
+                        }
+                    }
+                    Toast.makeText(this, daysToNotify, Toast.LENGTH_SHORT).show();
+
                 });
         builder.show();
+
+
     }
 
 
