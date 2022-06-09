@@ -90,7 +90,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Homework> getAllHomework() {
-        ArrayList<Homework> l = new ArrayList<Homework>();
+        ArrayList<Homework> l = new ArrayList<>();
         String query = "select * from " + TABLE_HOMEWORK;
         Cursor cursor = database.rawQuery(query, null);
 
@@ -117,7 +117,6 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         }
         return l;
     }
-    //ll
     public boolean isEmpty() {
         boolean rowExists;
         Cursor mCursor = database.rawQuery("select * from " + TABLE_HOMEWORK, null);
