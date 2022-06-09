@@ -117,7 +117,7 @@ public class SqlLiteHelper extends SQLiteOpenHelper {
         }
         return l;
     }
-
+    //ll
     public boolean isEmpty() {
         boolean rowExists;
         Cursor mCursor = database.rawQuery("select * from " + TABLE_HOMEWORK, null);
