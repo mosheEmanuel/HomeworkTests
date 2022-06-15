@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fab, fabHomework, fabTest;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     TextView tvOpen;
+    LinearLayout linearLayout;
     boolean isOpen = false;
 
     RecyclerView recyclerView;
@@ -53,10 +55,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         setTextOpen();
     }
 
-    public void init() {
+    public void init() { // מגדיר את כל המשתנים
 
         btnTest = findViewById(R.id.btnTest);
         btnHomework = findViewById(R.id.btnHomework);
+
+        linearLayout = findViewById(R.id.linearLayout);
 
         ibFilter = findViewById(R.id.ibFilter);
 
@@ -84,6 +88,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         fabHomework.setOnLongClickListener(this);
         fabTest.setOnLongClickListener(this);
 
+        sqlHomework = new SqlLiteHelperHomework(this);
+        sqlTest = new SqlLiteHelperTest(this);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
@@ -101,35 +108,37 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
             animateFab();
         } else if (v == btnHomework) {
+            recyclerView.clearOnScrollListeners();
             setHomeworkRecyclerView();
         } else if (v == btnTest) {
+            recyclerView.clearOnScrollListeners();
             setTestRecyclerView();
         }
 
     }
 
-    public void setTextOpen() {
-        SqlLiteHelperHomework sql = new SqlLiteHelperHomework(this);
-        sql.open();
-        if (!sql.isEmpty()) {
+    public void setTextOpen() {  // בודק האם יש נתונים ב sql ואם אין מראה משפט פתיחה
+        sqlHomework.open();
+        sqlTest.open();
+        if (!sqlHomework.isEmpty()&& !sqlTest.isEmpty()) {
             tvOpen.setVisibility(View.VISIBLE);
-            ibFilter.setVisibility(View.INVISIBLE);
+            linearLayout.setVisibility(View.INVISIBLE);
             SharedPreferences sp = getSharedPreferences("details", 0);
             String strFirsName = sp.getString("FirsName", null);
             String strLastName = sp.getString("LastName", null);
             tvOpen.setText(String.format("ברוך הבא %s %s\nלא הוספת שעורי בית", strFirsName, strLastName));
         } else {
             tvOpen.setVisibility(View.INVISIBLE);
-            ibFilter.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
             setHomeworkRecyclerView();
         }
-        sql.close();
+        sqlHomework.close();
+        sqlTest.close();
 
     }
 
-    public void setHomeworkRecyclerView() {
+    public void setHomeworkRecyclerView() { // קובע RecyclerView לשעורי הבית
 
-        sqlHomework = new SqlLiteHelperHomework(this);
         sqlHomework.open();
         allHomework = sqlHomework.getAllHomework();
         sqlHomework.close();
@@ -137,8 +146,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(homeworkAdapter);
     }
 
-    public void setTestRecyclerView() {
-        sqlTest = new SqlLiteHelperTest(this);
+    public void setTestRecyclerView() { // קובע RecyclerView למבחן
+
         sqlTest.open();
         allTest = sqlTest.getAllTest();
         sqlTest.close();
@@ -162,7 +171,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
-    private void animateFab() {
+    private void animateFab() { // קובע את האנמציות
         if (isOpen) {
             fab.startAnimation(rotateForward);
             fabHomework.startAnimation(fabClose);
@@ -179,7 +188,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             isOpen = true;
         }
     }
-
+    // פעולת המחיקה בהחלקה
     ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
         @Override

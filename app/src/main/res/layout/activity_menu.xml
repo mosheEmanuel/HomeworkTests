@@ -14,9 +14,9 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
-        >
+        android:orientation="horizontal"
+        android:visibility="invisible">
 
         <android.widget.Button
             android:id="@+id/btnTest"
@@ -37,7 +37,7 @@
             android:layout_gravity="center"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_baseline_filter_list_24"
-            android:visibility="invisible" />
+            />
 
     </LinearLayout>
 

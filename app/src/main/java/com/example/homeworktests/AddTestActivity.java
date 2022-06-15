@@ -40,19 +40,25 @@ public class AddTestActivity extends AppCompatActivity implements DatePickerDial
         btnTestAdd = findViewById(R.id.btnTestAdd);
 
         btnTestAdd.setOnClickListener(this);
+        tvTestDate.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        setTvDate();
-        subject = acTestSubject.getText().toString();
-        subSubject = etTestSubSubject.getText().toString();
-        Test test = new Test(subject, subSubject, date, 0);
-        SqlLiteHelperTest sql = new SqlLiteHelperTest(this);
-        sql.open();
-        sql.createTest(test);
-        sql.close();
-        finish();
+        if(view == tvTestDate)
+        {
+            setTvDate();
+        }
+        if(view==btnTestAdd) {
+            subject = acTestSubject.getText().toString();
+            subSubject = etTestSubSubject.getText().toString();
+            Test test = new Test(subject, subSubject, date, 0);
+            SqlLiteHelperTest sql = new SqlLiteHelperTest(this);
+            sql.open();
+            sql.createTest(test);
+            sql.close();
+            finish();
+        }
     }
 
     public void setAutoComplete() {
