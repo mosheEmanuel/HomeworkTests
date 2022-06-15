@@ -1,6 +1,5 @@
 package com.example.homeworktests;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -20,15 +19,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class AddHomeworkActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     AutoCompleteTextView acSubject;
     EditText etSubSubject, etPage, etExercises;
-    TextView tvDate, tvNotifications;
+    TextView tvDate;
     Spinner spinnerPriority;
     Button btnAdd;
     boolean[] checkedDays;
-    String daysToNotify;
 
 
     String subject;
@@ -36,14 +34,13 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     String page;
     String exercises;
     String date;
-    String notifications;
     int priority;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
+        setContentView(R.layout.activity_add_homework);
 
         init();
         setAutoComplete();
@@ -58,13 +55,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         etExercises = findViewById(R.id.etExercises);
 
         tvDate = findViewById(R.id.tvDate);
-        tvNotifications = findViewById(R.id.tvNotifications);
         btnAdd = findViewById(R.id.btnAdd);
 
         spinnerPriority = findViewById(R.id.spinnerPriority);
 
         tvDate.setOnClickListener(this);
-        tvNotifications.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
         checkedDays = new boolean[]{false, false, false, false, false, false};
     }
@@ -94,12 +89,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onClick(View v) {
         if (v == tvDate) {
             setTvDate();
-        } else if (v == tvNotifications) {
-            setNotifications();
-        } else if (btnAdd == v) {
+        } else
             setBtnAdd();
-        }
     }
+
 
     public void setBtnAdd() {
         if (priority > 0) {
@@ -107,8 +100,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             subSubject = etSubSubject.getText().toString();
             page = etPage.getText().toString();
             exercises = etExercises.getText().toString();
-            Homework homework = new Homework(0, subject, page, exercises, subSubject, date, notifications, priority);
-            SqlLiteHelper sql = new SqlLiteHelper(this);
+            Homework homework = new Homework(0, subject, page, exercises, subSubject, date, priority);
+            SqlLiteHelperHomework sql = new SqlLiteHelperHomework(this);
             sql.open();
             sql.createHomework(homework);
             sql.close();
@@ -135,33 +128,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         else
             date = dayOfMonth + "/0" + month + "/" + (year % 100);
 
-
         String str = "אתה בחרת :" + date;
         tvDate.setText(str);
-    }
-
-    public void setNotifications() {
-        daysToNotify = "";
-        String[] strNotifications = {"יום ראשון", "יום שני", "יום שלישי", "יום רביעי", "יום חמישי", "יום שישי"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this)
-                .setTitle("תבחר את ימי התראות")
-                .setMultiChoiceItems(strNotifications, checkedDays, (dialogInterface, i, b) -> {
-                    if (b) {
-                        checkedDays[i] = true;
-                    } else checkedDays[i] = false;
-
-                }).setPositiveButton("קבע", (dialogInterface, i) -> {
-                    for (int j = 0; j < checkedDays.length; j++) {
-                        if (checkedDays[j]) {
-                            daysToNotify += j;
-                        }
-                    }
-                    Toast.makeText(this, daysToNotify, Toast.LENGTH_SHORT).show();
-
-                });
-        builder.show();
-
-
     }
 
 

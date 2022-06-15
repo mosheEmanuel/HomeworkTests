@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        tools:ignore="MissingClass">
+
+        <AutoCompleteTextView
+            android:id="@+id/acSubject"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:hint="המקצוע"
+            android:inputType="text"
+            android:textColorHighlight="#7cff88"
+            android:textColorHint="#546E7A"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+        android:id="@+id/etSubSubject"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:hint="הנושא הנלמד"
+        android:inputType="text"
+        android:textColorHint="#546E7A" />
+
+    <EditText
+        android:id="@+id/etPage"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:hint="עמודים"
+        android:textColorHint="#546E7A" />
+
+    <EditText
+        android:id="@+id/etExercises"
+        android:layout_width="150dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:hint="תרגלים"
+        android:textColorHint="#546E7A" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="בחר תאריך הגשה"
+        android:textColor="#0E75F3"
+        android:textSize="30sp" />
+
+
+
+
+    <Spinner
+        android:id="@+id/spinnerPriority"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:spinnerMode="dropdown" />
+
+    <android.widget.Button
+        android:id="@+id/btnAdd"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/my_button"
+        android:hint="להוסיף שעורי בית"
+        android:textColorHint="#E91E63"
+        android:textSize="20sp" />
+</LinearLayout>

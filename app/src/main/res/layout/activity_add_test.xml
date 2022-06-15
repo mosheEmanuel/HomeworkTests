@@ -16,7 +16,7 @@
         tools:ignore="MissingClass">
 
         <AutoCompleteTextView
-            android:id="@+id/acSubject"
+            android:id="@+id/acTestSubject"
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:hint="המקצוע"
@@ -27,66 +27,35 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
-        android:id="@+id/etSubSubject"
+        android:id="@+id/etTestSubSubject"
         android:layout_width="150dp"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
-        android:hint="הנושא הנלמד"
+        android:hint="נושא המבחן"
         android:inputType="text"
         android:textColorHint="#546E7A" />
 
-    <EditText
-        android:id="@+id/etPage"
-        android:layout_width="150dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:hint="עמודים"
-        android:textColorHint="#546E7A" />
 
-    <EditText
-        android:id="@+id/etExercises"
-        android:layout_width="150dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:hint="תרגלים"
-        android:textColorHint="#546E7A" />
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/tvTestDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="בחר תאריך הגשה"
+        android:text="בחר תאריך מבחן"
         android:textColor="#0E75F3"
         android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/tvNotifications"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:drawablePadding="10dp"
-        android:text="הגדרת התראות"
-        android:textColor="#E91E63"
-        android:textSize="30sp"
-        app:drawableEndCompat="@drawable/ic_baseline_access_time_24" />
 
 
-    <Spinner
-        android:id="@+id/spinnerPriority"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:spinnerMode="dropdown" />
-
-    <Button
-        android:id="@+id/btnAdd"
+    <android.widget.Button
+        android:id="@+id/btnTestAdd"
         android:layout_width="250dp"
         android:layout_height="75dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/my_button"
-        android:hint="להוסיף שעורי בית"
+        android:hint="להוסיף מבחן"
         android:textColorHint="#E91E63"
         android:textSize="20sp" />
 </LinearLayout>

@@ -10,33 +10,39 @@ import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationsReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        SqlLiteHelperHomework sql = new SqlLiteHelperHomework(context);
+        sql.open();
+        if (!sql.isEmpty()) {
+            String title = "יש לך שיעורי בית";
+            String message = "תבדוק איזה שעורי בית יש לך";
+
+            int icon = R.drawable.ic_baseline_access_time_24;
+
+            //phase 2
+            long currentTimeMillis = System.currentTimeMillis();
+            Intent intent1 = new Intent(context, MenuActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, 0);
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);// service
 
 
-        //phase 2
-        Intent intent1 = new Intent(context, MenuActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, 0);
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);//חיבור לservice של המערכת
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "M_CH_ID");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {//אם הגרסה מעל אוראו חובה להוסיף channel
-            String channelId = "YOUR_CHANNEL_ID";
-            NotificationChannel channel = new NotificationChannel(channelId,
-                    "Channel human readable title",
-                    NotificationManager.IMPORTANCE_DEFAULT);
-            notificationManager.createNotificationChannel(channel);
-            builder.setChannelId(channelId);
+            String channelId = "channelId";
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channelId");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel(channelId, "Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
+                notificationManager.createNotificationChannel(channel);
+                builder.setChannelId(channelId);
+            }
+            //phase 3
+            Notification notification = builder.setContentIntent(pendingIntent)
+                    .setWhen(currentTimeMillis).setContentTitle(title).setSmallIcon(icon)
+                    .setAutoCancel(true).
+                    setStyle(new NotificationCompat.BigTextStyle().bigText(message)).build();
+            notificationManager.notify(0, notification);//יצירת ההתראה
         }
-        //phase 3
-//        Notification notification = builder.setContentIntent(pendingIntent)
-//                .setSmallIcon(icon).setTicker(ticker).setWhen(when)
-//                .setAutoCancel(true).setContentTitle(title)
-//                .setContentText(message).build();
-//        notificationManager.notify(3, notification);//יצירת האובייקט של ההתראה
     }
 }

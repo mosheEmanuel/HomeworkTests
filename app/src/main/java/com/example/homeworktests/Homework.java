@@ -14,9 +14,7 @@ public class Homework {
 
     // בשביל SQL
     private String subSubject;
-    private String notifications;
     private int numPriority;
-
     private long Id;
 
 
@@ -33,13 +31,12 @@ public class Homework {
 
 
     // בשביל SQL
-    public Homework(long id, String subject, String subSubject, String page, String exercise, String date, String notifications, int numPriority) {
+    public Homework(long id, String subject, String subSubject, String page, String exercise, String date, int numPriority) {
         this.subject = subject;
         this.subSubject = subSubject;
         this.page = page;
         this.exercise = exercise;
         this.date = date;
-        this.notifications = notifications;
         this.numPriority = numPriority;
         this.Id = id;
     }
@@ -51,14 +48,6 @@ public class Homework {
 
     public void setSubSubject(String subSubject) {
         this.subSubject = subSubject;
-    }
-
-    public String getNotifications() {
-        return notifications;
-    }
-
-    public void setNotifications(String notifications) {
-        this.notifications = notifications;
     }
 
     public int getNumPriority() {

@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HomeworkTests" >
+        <activity
+            android:name=".AddTestActivity"
+            android:exported="false" />
 
         <receiver
             android:name=".NotificationsReceiver"
@@ -16,7 +19,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".AddActivity"
+            android:name=".AddHomeworkActivity"
             android:exported="false" />
         <activity
             android:name=".MenuActivity"

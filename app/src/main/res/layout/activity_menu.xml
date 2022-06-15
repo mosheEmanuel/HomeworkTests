@@ -7,23 +7,45 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/ibFilter"
+        android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp" />
 
-    <ImageButton
-        android:visibility="invisible"
-        android:id="@+id/ibFilter"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_filter_list_24" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <android.widget.Button
+            android:id="@+id/btnTest"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="מבחנים" />
+
+        <android.widget.Button
+            android:id="@+id/btnHomework"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="שעורי בית" />
+
+        <ImageButton
+            android:id="@+id/ibFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_baseline_filter_list_24"
+            android:visibility="invisible" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvOpen"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/ibFilter"
+        android:layout_below="@+id/linearLayout"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="@color/black"

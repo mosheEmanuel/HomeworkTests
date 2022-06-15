@@ -2,7 +2,9 @@ package com.example.homeworktests;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class OpenActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -19,6 +23,9 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
     Button btnNext;
     SharedPreferences sp;
     SharedPreferences.Editor editor;
+    PendingIntent pendingIntent;
+    AlarmManager alarmManager;
+
 
     @Override
 
@@ -27,6 +34,7 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_open);
 
+            startNotification();
         firstScreen();
         init();
     }
@@ -90,5 +98,27 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
                 .show();
     }
 
+    public void startNotification() {
+        sp = getSharedPreferences("notification", 0);
+        if (sp.getBoolean("hasNotification", true)) {
+            Intent intent = new Intent(this, NotificationsReceiver.class);
 
+            //שליחה לברודקסט
+            pendingIntent = PendingIntent.getBroadcast(
+                    this.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);//התחברות ל service
+
+            Calendar calendar = Calendar.getInstance();
+
+            calendar.set(Calendar.HOUR_OF_DAY, 9);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);//הפעלה חוזרת
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean("hasNotification", false);
+            editor.apply();
+        }
+    }
 }

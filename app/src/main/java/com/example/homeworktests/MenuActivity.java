@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,17 +23,22 @@ import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
 
+    Button btnTest, btnHomework;
     ImageButton ibFilter;
-    FloatingActionButton fab, fabTest, fabHomeWork;
+    FloatingActionButton fab, fabHomework, fabTest;
     Animation fabOpen, fabClose, rotateForward, rotateBackward;
     TextView tvOpen;
     boolean isOpen = false;
-    ArrayList<Homework> allHomework;
 
     RecyclerView recyclerView;
-    HomeworkAdapter homeworkAdapter;
 
-    SqlLiteHelper sql;
+    ArrayList<Homework> allHomework;
+    ArrayList<Test> allTest;
+
+    HomeworkAdapter homeworkAdapter;
+    TestAdapter testAdapter;
+    SqlLiteHelperHomework sqlHomework;
+    SqlLiteHelperTest sqlTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +55,15 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     public void init() {
 
+        btnTest = findViewById(R.id.btnTest);
+        btnHomework = findViewById(R.id.btnHomework);
+
         ibFilter = findViewById(R.id.ibFilter);
 
         tvOpen = findViewById(R.id.tvOpen);
         fab = findViewById(R.id.fab);
-        fabTest = findViewById(R.id.fabTest);
-        fabHomeWork = findViewById(R.id.fabHomeWork);
+        fabHomework = findViewById(R.id.fabTest);
+        fabTest = findViewById(R.id.fabHomeWork);
 
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
@@ -68,12 +77,12 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         fab.setOnClickListener(this);
+        fabHomework.setOnClickListener(this);
         fabTest.setOnClickListener(this);
-        fabHomeWork.setOnClickListener(this);
 
         fab.setOnLongClickListener(this);
+        fabHomework.setOnLongClickListener(this);
         fabTest.setOnLongClickListener(this);
-        fabHomeWork.setOnLongClickListener(this);
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
@@ -83,18 +92,24 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == fab) {
             animateFab();
-        } else if (v == fabTest) {
-            Intent intent = new Intent(this, AddActivity.class);
+        } else if (v == fabHomework) {
+            Intent intent = new Intent(this, AddHomeworkActivity.class);
             startActivity(intent);
             animateFab();
-            setRecyclerView();
-        } else if (v == fabHomeWork) {
+        } else if (v == fabTest) {
+            Intent intent = new Intent(this, AddTestActivity.class);
+            startActivity(intent);
             animateFab();
+        } else if (v == btnHomework) {
+            setHomeworkRecyclerView();
+        } else if (v == btnTest) {
+            setTestRecyclerView();
         }
+
     }
 
     public void setTextOpen() {
-        SqlLiteHelper sql = new SqlLiteHelper(this);
+        SqlLiteHelperHomework sql = new SqlLiteHelperHomework(this);
         sql.open();
         if (!sql.isEmpty()) {
             tvOpen.setVisibility(View.VISIBLE);
@@ -106,30 +121,41 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             tvOpen.setVisibility(View.INVISIBLE);
             ibFilter.setVisibility(View.VISIBLE);
-            setRecyclerView();
+            setHomeworkRecyclerView();
         }
         sql.close();
 
     }
 
-    public void setRecyclerView() {
-         sql = new SqlLiteHelper(this);
-        sql.open();
-        allHomework = sql.getAllHomework();
-        sql.close();
+    public void setHomeworkRecyclerView() {
+
+        sqlHomework = new SqlLiteHelperHomework(this);
+        sqlHomework.open();
+        allHomework = sqlHomework.getAllHomework();
+        sqlHomework.close();
         homeworkAdapter = new HomeworkAdapter(this, allHomework);
         recyclerView.setAdapter(homeworkAdapter);
+    }
+
+    public void setTestRecyclerView() {
+        sqlTest = new SqlLiteHelperTest(this);
+        sqlTest.open();
+        allTest = sqlTest.getAllTest();
+        sqlTest.close();
+        testAdapter = new TestAdapter(this, allTest);
+        recyclerView.setAdapter(testAdapter);
+
 
     }
 
     @Override
     public boolean onLongClick(View v) {
 
-        if (v == fabTest) {
+        if (v == fabHomework) {
             Toast.makeText(this, "כפתור להוספת שעורי בית", Toast.LENGTH_SHORT).show();
             return true;
         }
-        if (v == fabHomeWork) {
+        if (v == fabTest) {
             Toast.makeText(this, "כפתור להוספת מבחן", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -139,17 +165,17 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private void animateFab() {
         if (isOpen) {
             fab.startAnimation(rotateForward);
+            fabHomework.startAnimation(fabClose);
             fabTest.startAnimation(fabClose);
-            fabHomeWork.startAnimation(fabClose);
+            fabHomework.setClickable(false);
             fabTest.setClickable(false);
-            fabHomeWork.setClickable(false);
             isOpen = false;
         } else {
             fab.startAnimation(rotateBackward);
+            fabHomework.startAnimation(fabOpen);
             fabTest.startAnimation(fabOpen);
-            fabHomeWork.startAnimation(fabOpen);
+            fabHomework.setClickable(true);
             fabTest.setClickable(true);
-            fabHomeWork.setClickable(true);
             isOpen = true;
         }
     }
@@ -163,9 +189,9 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            sql.open();
-            sql.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
-            sql.close();
+            sqlHomework.open();
+            sqlHomework.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
+            sqlHomework.close();
             allHomework.remove(viewHolder.getAdapterPosition());
             homeworkAdapter.notifyDataSetChanged();
 
