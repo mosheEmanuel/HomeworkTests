@@ -75,6 +75,7 @@ public class SqlLiteHelperTest extends SQLiteOpenHelper {
                 long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
 
                 Test Test = new Test(subject, subSubject, date, id);
+                l.add(Test);
             }
         }
         return l;
