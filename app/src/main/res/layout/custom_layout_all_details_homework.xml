@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:id="@+id/custom_layout_all_details_homework">
+
+    <TextView
+        android:id="@+id/tvSubject"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvSubSubject"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvPage"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvExercise"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/tvPriority"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="40sp" />
+
+    <android.widget.Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/my_button"
+        android:hint="לעדכן את שעורי הבית"
+        android:textColorHint="#E91E63"
+        android:textSize="20sp" />
+
+    <android.widget.Button
+        android:id="@+id/btnExit"
+        android:layout_width="250dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/my_button"
+        android:hint="לצאת"
+        android:textColorHint="#E91E63"
+        android:textSize="20sp"
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

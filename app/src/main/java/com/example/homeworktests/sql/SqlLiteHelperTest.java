@@ -1,10 +1,12 @@
-package com.example.homeworktests;
+package com.example.homeworktests.sql;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.homeworktests.Test;
 
 import java.util.ArrayList;
 
@@ -69,8 +71,10 @@ public class SqlLiteHelperTest extends SQLiteOpenHelper {
         if (cursor.getCount() >= 0) {
 
             while (cursor.moveToNext()) {
-                String subject = cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
-                String subSubject = cursor.getString(cursor.getColumnIndex(COLUMN_SUB_SUBJECT));
+                String subject = "המקצוע: ";
+                subject += cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
+                String subSubject = "הנושא: ";
+                subSubject += cursor.getString(cursor.getColumnIndex(COLUMN_SUB_SUBJECT));
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
 

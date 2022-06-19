@@ -1,6 +1,5 @@
 package com.example.homeworktests;
 
-import android.graphics.Bitmap;
 
 public class Homework {
     // בשביל ListView
@@ -11,11 +10,12 @@ public class Homework {
     private String exercise;
     private String subject;
     private String date;
+    private long Id;
+
 
     // בשביל SQL
     private String subSubject;
     private int numPriority;
-    private long Id;
 
 
     // בשביל ListView

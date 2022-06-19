@@ -14,13 +14,18 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/my_button.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/drawable/mybutton.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_add.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_add_test.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_all_details_homework.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_open.xml" value="0.3009833262077811" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_sms.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/add_homework_dialog.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_dialog_notifications.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_layout.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_layout_all_details.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_layout_homework.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_layout_test.xml" value="0.3009833262077811" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/dialog_add.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/menu/menu_main.xml" value="0.36102564102564105" />
         <entry key="..\:/Users/User/AndroidStudioProjects/HomeworkTests/app/src/main/res/menu/popup_menu.xml" value="0.36666666666666664" />
@@ -39,7 +44,6 @@
         <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_add_test.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_menu.xml" value="0.22" />
-        <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/activity_sms.xml" value="0.29791666666666666" />
         <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_dialog_notifications.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_layout.xml" value="0.17147922998986828" />
         <entry key="..\:/Users/student/AndroidStudioProjects/HomeworkTests/app/src/main/res/layout/custom_layout_homework.xml" value="0.25" />

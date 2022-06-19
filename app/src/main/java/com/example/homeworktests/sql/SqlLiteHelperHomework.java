@@ -1,4 +1,4 @@
-package com.example.homeworktests;
+package com.example.homeworktests.sql;
 
 
 import android.content.ContentValues;
@@ -6,7 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+
+import com.example.homeworktests.Homework;
 
 import java.util.ArrayList;
 
@@ -92,20 +93,23 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
         if (cursor.getCount() >= 0) {
 
             while (cursor.moveToNext()) {
-                String subject = cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
-                String page = cursor.getString(cursor.getColumnIndex(COLUMN_PAGE));
-                String exercise = cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE));
+                String subject = "המקצוע: ";
+                subject += cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
+                String page= "העמוד: ";
+                page += cursor.getString(cursor.getColumnIndex(COLUMN_PAGE));
+                String exercise = "התרגיל: ";
+                exercise += cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE));
                 String date = cursor.getString(cursor.getColumnIndex(COLUMN_DATE));
                 int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
                 long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
 
-                String sPriority;
+                String sPriority= "העדיפות: ";
                 if (priority == 1)
-                    sPriority = "נמוכה";
+                    sPriority += "נמוכה";
                 else if (priority == 2)
-                    sPriority = "בנונית";
+                    sPriority += "בנונית";
                 else
-                    sPriority = "גבוהה";
+                    sPriority += "גבוהה";
                 Homework homework = new Homework(id,page, exercise, subject, date, sPriority);
                 l.add(homework);
             }

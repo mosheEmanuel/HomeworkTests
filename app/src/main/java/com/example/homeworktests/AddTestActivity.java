@@ -12,6 +12,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.homeworktests.sql.SqlLiteHelperTest;
+
 import java.util.Calendar;
 
 public class AddTestActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {

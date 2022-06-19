@@ -15,6 +15,8 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.telephony.SmsManager;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -175,6 +177,28 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
             } else
                 isGranted = false;
         }
+    }
+        public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.menuSms) {
+
+            Toast.makeText(this, "אתה נמצא במסך הנוכחי", Toast.LENGTH_SHORT).show();
+        }
+        else if (id == R.id.menuMenuActivity)
+        {
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+        }
+        return true;
     }
 
 }

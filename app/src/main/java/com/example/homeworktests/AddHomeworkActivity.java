@@ -15,26 +15,26 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.homeworktests.sql.SqlLiteHelperHomework;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class AddHomeworkActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
-    AutoCompleteTextView acSubject;
-    EditText etSubSubject, etPage, etExercises;
-    TextView tvDate;
-    Spinner spinnerPriority;
-    Button btnAdd;
-    boolean[] checkedDays;
+    AutoCompleteTextView acSubject; // text view עם השלמה אוטמטית של המקצוע
+    EditText etSubSubject; // נושא השיעורי הבית
+    EditText etPage; // העמודים
+    EditText etExercises; // התרגילם
+    TextView tvDate; // טקסט שלוחצים עליו נותן לך לבחור תאריך
+    Spinner spinnerPriority; // ספינר שנותן לך לבחור עדיפות
 
+    Button btnAdd; // הכפתור שמוסיף שעורי בית
 
-    String subject;
-    String subSubject;
-    String page;
-    String exercises;
-    String date;
-    int priority;
+    String date; // String שעליו יופיע התאריך
+
+    int priority; // העדיפות נשמר במספר 0-2
 
 
     @Override
@@ -47,7 +47,7 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
         setSpinner();
     }
 
-    public void init() {
+    public void init() { // מגדיר את כל המשתנים
         acSubject = findViewById(R.id.acSubject);
 
         etSubSubject = findViewById(R.id.etSubSubject);
@@ -61,27 +61,6 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
 
         tvDate.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
-        checkedDays = new boolean[]{false, false, false, false, false, false};
-    }
-
-    public void setAutoComplete() {
-        String[] strAutoComplete = new String[]{"מתמטיקה", "אנגלית", "לשון", "עברית", "אזרחות", "גמרא", "תנך", "מחשבים"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, strAutoComplete);
-        acSubject.setAdapter(adapter);
-
-    }
-
-    public void setSpinner() {
-
-        List<String> lstPriority = new ArrayList<>();
-        lstPriority.add("תבחר עדיפות");
-        lstPriority.add("נמוכה");
-        lstPriority.add("בנונית");
-        lstPriority.add("גבוהה");
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lstPriority);
-        spinnerPriority.setAdapter(arrayAdapter);
-        spinnerPriority.setOnItemSelectedListener(this);
     }
 
 
@@ -93,45 +72,25 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
             setBtnAdd();
     }
 
+    public void setAutoComplete() { // קובע את המלים בהשלמה האוטומטית
+        String[] strAutoComplete = new String[]{"מתמטיקה", "אנגלית", "לשון", "עברית", "אזרחות", "גמרא", "תנך", "מחשבים"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, strAutoComplete);
+        acSubject.setAdapter(adapter);
 
-    public void setBtnAdd() {
-        if (priority > 0) {
-            subject = acSubject.getText().toString();
-            subSubject = etSubSubject.getText().toString();
-            page = etPage.getText().toString();
-            exercises = etExercises.getText().toString();
-            Homework homework = new Homework(0, subject, page, exercises, subSubject, date, priority);
-            SqlLiteHelperHomework sql = new SqlLiteHelperHomework(this);
-            sql.open();
-            sql.createHomework(homework);
-            sql.close();
-            finish();
-        } else Toast.makeText(this, "לא הוספת את כל הפרטים", Toast.LENGTH_SHORT).show();
     }
 
-    public void setTvDate() {
-        int nowYear = Calendar.getInstance().get(Calendar.YEAR);
-        int nowMonth = Calendar.getInstance().get(Calendar.MONTH);
-        int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    public void setSpinner() { //  מגדיר את הספינר של העדיפפות
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, this, nowYear, nowMonth, nowDay);
-        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
-        datePickerDialog.show();
+        List<String> lstPriority = new ArrayList<>();
+        lstPriority.add("תבחר עדיפות");
+        lstPriority.add("נמוכה");
+        lstPriority.add("בנונית");
+        lstPriority.add("גבוהה");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, lstPriority);
+        spinnerPriority.setAdapter(arrayAdapter);
+        spinnerPriority.setOnItemSelectedListener(this);
     }
-
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-        month++;
-        if (month > 9)
-            date = dayOfMonth + "/" + month + "/" + (year % 100);
-        else
-            date = dayOfMonth + "/0" + month + "/" + (year % 100);
-
-        String str = "אתה בחרת :" + date;
-        tvDate.setText(str);
-    }
-
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -146,5 +105,47 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
+    public void setBtnAdd() { // מגדיר את כפתור ההוספה
+        if (priority > 0) {
+            String subject  = acSubject.getText().toString();
+            String subSubject = etSubSubject.getText().toString();
+            String  page = etPage.getText().toString();
+            String  exercises = etExercises.getText().toString();
+            Homework homework = new Homework(0, subject, page, exercises, subSubject, date, priority);
+            SqlLiteHelperHomework sql = new SqlLiteHelperHomework(this);
+            sql.open();
+            sql.createHomework(homework);
+            sql.close();
+            finish();
+        } else Toast.makeText(this, "לא הוספת את כל הפרטים", Toast.LENGTH_SHORT).show();
+    }
+
+    public void setTvDate() { // מגדיר את בחירת התאריך
+        int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+        int nowMonth = Calendar.getInstance().get(Calendar.MONTH);
+        int nowDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, this, nowYear, nowMonth, nowDay);
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
+        datePickerDialog.show();
+    }
+
+    @Override // מגדיר את בחירת התאריך
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+        month++;
+        if (month > 9)
+            date = dayOfMonth + "/" + month + "/" + (year % 100);
+        else
+            date = dayOfMonth + "/0" + month + "/" + (year % 100);
+
+        String str = "אתה בחרת :" + date;
+        tvDate.setText(str);
+    }
+
+
+
 
 }

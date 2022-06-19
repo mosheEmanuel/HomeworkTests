@@ -1,6 +1,6 @@
 package com.example.homeworktests;
 
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,33 +22,50 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.homeworktests.adapter.HomeworkAdapter;
+import com.example.homeworktests.adapter.TestAdapter;
+import com.example.homeworktests.sql.SqlLiteHelperHomework;
+import com.example.homeworktests.sql.SqlLiteHelperTest;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, HomeworkAdapter.ItmeClickListener {
 
-    Button btnTest, btnHomework;
+    Button btnTest;//הכפתור מראה את המבחנים
+    Button btnHomework; // הכפתור מארה את השעורי בית
+    Button btnExit;
+    Button btnUpdate;
+
+    FloatingActionButton fab; // כפתור עגול שמראה את שתי הכפתורים העגולים האחרי
+    FloatingActionButton fabHomework; // כפתור שלמעביר אותך למסך activity_add_homework
+    FloatingActionButton fabTest; // כפתור שלמעביר אותך למסך activity_add_test
+
+    Animation fabOpen;
+    Animation fabClose;
+    Animation rotateForward;
+    Animation rotateBackward;
 
     ImageButton ibFilter;
-    FloatingActionButton fab, fabHomework, fabTest;
-    Animation fabOpen, fabClose, rotateForward, rotateBackward;
-    TextView tvOpen;
 
-    LinearLayout linearLayout;
+    TextView tvOpen; // הטקסט שמופיע שאין שעורי בית או מבחנים
 
-    boolean isOpen = false;
-    boolean homeworkOrTest = true;
+    LinearLayout linearLayout; // Layout של הכפתורים  btnTest btnHomework
 
-    RecyclerView recyclerView;
+    boolean animationIsOpen = false; // boolean שבודק האם האנמציות נפתחו
+    boolean homeworkOrTest = true; // boolean שבודק על איזה כפתור אנחנו נמצאים עך  btnTest או btnHomework
 
-    ArrayList<Homework> allHomework;
-    ArrayList<Test> allTest;
+    RecyclerView recyclerView; // ה recyclerView שמראה את השעורי בית/מבחנים
 
-    HomeworkAdapter homeworkAdapter;
-    TestAdapter testAdapter;
-    SqlLiteHelperHomework sqlHomework;
-    SqlLiteHelperTest sqlTest;
+    ArrayList<Homework> allHomework; // רשימה שמכילה את כל השעורי הבית
+    ArrayList<Test> allTest; // רשימה שמכילה את כל ההמבחנים
+
+    HomeworkAdapter homeworkAdapter; // adapter של השעורי הבית
+    TestAdapter testAdapter; // adapter של המבחנים
+    SqlLiteHelperHomework sqlHomework; // הdb של השעורי בית
+    SqlLiteHelperTest sqlTest; // הdp של המבחנים
+
+    Dialog dHomework;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +108,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         fab.setOnClickListener(this);
         fabHomework.setOnClickListener(this);
         fabTest.setOnClickListener(this);
@@ -104,6 +122,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
         itemTouchHelper.attachToRecyclerView(recyclerView);
+
+
     }
 
     @Override
@@ -123,6 +143,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v == btnTest) {
             setTestRecyclerView();
         }
+        else if (v ==btnExit)
+        {
+            dHomework.cancel();
+        }
 
     }
 
@@ -139,8 +163,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             tvOpen.setVisibility(View.INVISIBLE);
             linearLayout.setVisibility(View.VISIBLE);
-            if(homeworkOrTest)
-            setHomeworkRecyclerView();
+            if (homeworkOrTest)
+                setHomeworkRecyclerView();
             else
                 setTestRecyclerView();
         }
@@ -154,7 +178,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         sqlHomework.open();
         allHomework = sqlHomework.getAllHomework();
         sqlHomework.close();
-        homeworkAdapter = new HomeworkAdapter(this, allHomework);
+        homeworkAdapter = new HomeworkAdapter(this, allHomework,this);
         recyclerView.setAdapter(homeworkAdapter);
         homeworkOrTest = true;
 
@@ -187,62 +211,55 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void animateFab() { // קובע את האנמציות
-        if (isOpen) {
+        if (animationIsOpen) {
             fab.startAnimation(rotateForward);
             fabHomework.startAnimation(fabClose);
             fabTest.startAnimation(fabClose);
             fabHomework.setClickable(false);
             fabTest.setClickable(false);
-            isOpen = false;
+            animationIsOpen = false;
         } else {
             fab.startAnimation(rotateBackward);
             fabHomework.startAnimation(fabOpen);
             fabTest.startAnimation(fabOpen);
             fabHomework.setClickable(true);
             fabTest.setClickable(true);
-            isOpen = true;
+            animationIsOpen = true;
         }
     }
 
-    public void deleteAlertDialog(RecyclerView.ViewHolder viewHolder) {
+    public void deleteAlertDialog(RecyclerView.ViewHolder viewHolder) {   // מראה דילוג ששאול האם אתה בטוח רוצה למחוק
         AlertDialog.Builder builder = new AlertDialog.Builder(this).
                 setTitle("Delete")
                 .setMessage("בטוח שאתה רוצה למחוק")
                 .setCancelable(false)
-                .setPositiveButton("כן", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (homeworkOrTest) {
-                            sqlHomework.open();
-                            sqlHomework.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
-                            sqlHomework.close();
-                            allHomework.remove(viewHolder.getAdapterPosition());
-                            homeworkAdapter.notifyDataSetChanged();
-                        } else {
-                            sqlTest.open();
-                            sqlTest.deleteByRow(allTest.get(viewHolder.getAdapterPosition()).getId());
-                            sqlTest.close();
-                            allTest.remove(viewHolder.getAdapterPosition());
-                            testAdapter.notifyDataSetChanged();
-                        }
+                .setPositiveButton("כן", (dialogInterface, i) -> {  // מגדיר את הכפתור החיובי
+                    if (homeworkOrTest) {
+                        sqlHomework.open();
+                        sqlHomework.deleteByRow(allHomework.get(viewHolder.getAdapterPosition()).getId());
+                        sqlHomework.close();
+                        allHomework.remove(viewHolder.getAdapterPosition());
+                        homeworkAdapter.notifyDataSetChanged();
+                    } else {
+                        sqlTest.open();
+                        sqlTest.deleteByRow(allTest.get(viewHolder.getAdapterPosition()).getId());
+                        sqlTest.close();
+                        allTest.remove(viewHolder.getAdapterPosition());
+                        testAdapter.notifyDataSetChanged();
                     }
-                }).setNegativeButton("לא", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (homeworkOrTest)
-                            setHomeworkRecyclerView();
-                        else
-                            setTestRecyclerView();
+                }).setNegativeButton("לא", (dialogInterface, i) -> { // מגדיר את הכפתור השלילי
+                    if (homeworkOrTest)
+                        setHomeworkRecyclerView();
+                    else
+                        setTestRecyclerView();
 
-                    }
                 });
         AlertDialog dialog = builder.create();// נפעיל את הבילדר ונחזיר רפרנס ל דיאלוג
         dialog.show();
 
     }
 
-    // פעולת המחיקה בהחלקה
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {      // פעולת המחיקה בהחלקה
 
         @Override
         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -255,25 +272,60 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
+    // מגדיר את ה menu
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    // מראה את ה menu
     @Override
-
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.menuSettings) {
 
-        } else if (id == R.id.menuSms) {
+        if (id == R.id.menuSms) {
             Intent intent = new Intent(this, SmsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.menuMenuActivity) {
+            Toast.makeText(this, "אתה נמצא במסך הנוכחי", Toast.LENGTH_SHORT).show();
         }
         return true;
     }
 
+    public void createHomeworkDialog(int position) {
+        dHomework = new Dialog(this);
+        dHomework.setContentView(R.layout.custom_layout_all_details_homework);
+        dHomework.setTitle("כל הפרטים");
+        dHomework.setCancelable(true);
+        TextView tvSubject = dHomework.findViewById(R.id.tvSubject);
+        TextView tvSubSubject = dHomework.findViewById(R.id.tvSubSubject);
+        TextView tvPage = dHomework.findViewById(R.id.tvPage);
+        TextView tvExercise = dHomework.findViewById(R.id.tvExercise);
+        TextView tvDate = dHomework.findViewById(R.id.tvDate);
+        TextView tvPriority = dHomework.findViewById(R.id.tvPriority);
 
+        btnUpdate = dHomework.findViewById(R.id.btnUpdate);
+        btnExit = dHomework.findViewById(R.id.btnExit);
+
+        btnUpdate.setOnClickListener(this);
+        btnExit.setOnClickListener(this);
+
+        tvSubject.setText(allHomework.get(position).getSubject());
+        tvSubSubject.setText(allHomework.get(position).getSubSubject());
+        tvPage.setText(allHomework.get(position).getPage());
+        tvExercise.setText(allHomework.get(position).getExercise());
+        tvDate.setText(allHomework.get(position).getDate());
+        tvPriority.setText(allHomework.get(position).getPriority());
+        dHomework.show();
+
+
+    }
+
+
+    @Override
+    public void onItmeClick(int position) {
+        createHomeworkDialog(position);
+    }
 }

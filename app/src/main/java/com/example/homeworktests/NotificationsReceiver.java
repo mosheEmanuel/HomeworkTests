@@ -11,6 +11,8 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+import com.example.homeworktests.sql.SqlLiteHelperHomework;
+
 public class NotificationsReceiver extends BroadcastReceiver {
 
     @Override

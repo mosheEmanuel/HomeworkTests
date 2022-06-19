@@ -1,4 +1,4 @@
-package com.example.homeworktests;
+package com.example.homeworktests.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.homeworktests.R;
+import com.example.homeworktests.Test;
 
 import java.util.List;
 
