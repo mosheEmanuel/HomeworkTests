@@ -39,6 +39,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     FloatingActionButton fabHomework; // כפתור שלמעביר אותך למסך activity_add_homework
     FloatingActionButton fabTest; // כפתור שלמעביר אותך למסך activity_add_test
 
+    // אנמציות
     Animation fabOpen;
     Animation fabClose;
     Animation rotateForward;
@@ -285,7 +286,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
         return true;
     }
-
+    // יוצר Dialog שמראה את כל הפרטים של השעורי הבית בגדול
     public void createHomeworkDialog(int position) {
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.custom_layout_all_details_homework);
@@ -311,6 +312,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         dialog.show();
 
     }
+    // יוצר Dialog שמראה את כל הפרטים של המבחנים בגדול
 
     public void createTestDialog (int position) {
         dialog = new Dialog(this);
@@ -332,12 +334,13 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+    // מגדיר לחיצה על Itme בrecyclerView
     @Override
     public void onHomeworkItmeClick(int position) {
     createHomeworkDialog(position);
     }
 
+    // מגדיר לחיצה על Itme בrecyclerView
     @Override
     public void onTestItmeClick(int position) {
         createTestDialog(position);

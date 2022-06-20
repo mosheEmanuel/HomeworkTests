@@ -17,15 +17,17 @@ import java.util.List;
 public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestTViewHolder> {
 
     Context mCtx;
-    List<Test> testList;
-    TestItmeClickListener mTestItmeClickListener;
+    List<Test> testList; // הרשימה
+    TestItmeClickListener mTestItmeClickListener; // אוביקט בשביל לדעת על איזה עצם לחצת
 
+    // פעולה בונה
     public TestAdapter(Context mCtx, List<Test> testList, TestItmeClickListener mTestItmeClickListener) {
         this.mCtx = mCtx;
         this.testList = testList;
         this.mTestItmeClickListener = mTestItmeClickListener;
     }
 
+    //יוצרViewHolder
 
     @NonNull
     @Override
@@ -34,7 +36,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestTViewHolde
         View view = inflater.inflate(R.layout.custom_layout_test, null);
         return new TestTViewHolder(view, mTestItmeClickListener);
     }
-
+    // בונה את ViewHolder
     @Override
     public void onBindViewHolder(@NonNull TestTViewHolder holder, int position) {
         Test test = testList.get(position);
@@ -48,6 +50,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestTViewHolde
         return testList.size();
     }
 
+    // class עזר  שמקבל רפרנס ל custom_layout_homework
     static class TestTViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvSubject, tvSubSubject, tvDate;
         TestItmeClickListener testItmeClickListener;

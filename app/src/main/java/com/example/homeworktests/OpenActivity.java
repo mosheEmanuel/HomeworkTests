@@ -17,14 +17,15 @@ import java.util.Calendar;
 
 public class OpenActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText etFirsName, etLastName;
-    TextView tvClass;
-    String theChoice;
-    Button btnNext;
+    EditText etFirsName; // EditText של השם הפרטי
+    EditText etLastName;// EditText של השם המשפחה
+    TextView tvClass; //  TextView שממנו יצא AlertDialog עם הכיתות
+    String theChoice; //  String עם הבחריה של הכיתה
+    Button btnNext; // כפתור שמוביל אותך למסך הבא
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager;
+    PendingIntent pendingIntent;// בשביל ההתראות
+    AlarmManager alarmManager;// מוצא שעה בשביל ההתראות
 
 
     @Override
@@ -34,21 +35,12 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_open);
 
-            startNotification();
+        startNotification();
         firstScreen();
         init();
     }
 
-    public void firstScreen() {
-        sp = getSharedPreferences("haveName", 0);
-        boolean haveName = sp.getBoolean("haveName", false);
-        if (haveName) {
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
+    // מגדיר את כל המשתנים
     public void init() {
         etFirsName = findViewById(R.id.etFirsName);
         etLastName = findViewById(R.id.etLastName);
@@ -59,32 +51,45 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
         btnNext.setOnClickListener(this);
     }
 
+    // בודע האם זה פעם ראשונה שלך במסך עם לא מעביר אותך למסך הבא
+    public void firstScreen() {
+        sp = getSharedPreferences("haveName", 0);
+        boolean haveName = sp.getBoolean("haveName", false);
+        if (haveName) {
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         if (v == tvClass)
             selectedClass();
         else if (v == btnNext) {
             if (!etLastName.toString().isEmpty() && !etFirsName.toString().isEmpty() && theChoice != null) {
-                editor = sp.edit();
-                editor.putBoolean("haveName", true);
-                editor.apply();
-
-                sp = getSharedPreferences("details", 0);
-                editor = sp.edit();
-
-                editor.putString("FirsName", etFirsName.getText().toString());
-                editor.putString("LastName", etLastName.getText().toString());
-                editor.putString("theChoice", theChoice);
-                editor.apply();
-                Intent intent = new Intent(this, MenuActivity.class);
-                startActivity(intent);
-                finish();
-
+                setBtnNext();
             }
         }
     }
+// קובע מה קורה עם לוחצים על כפתור נקסט
+    public void setBtnNext() {
+        editor = sp.edit();
+        editor.putBoolean("haveName", true);
+        editor.apply();
 
+        sp = getSharedPreferences("details", 0);
+        editor = sp.edit();
 
+        editor.putString("FirsName", etFirsName.getText().toString());
+        editor.putString("LastName", etLastName.getText().toString());
+        editor.putString("theChoice", theChoice);
+        editor.apply();
+        Intent intent = new Intent(this, MenuActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    // מגדיר את AlertDialog של הכיתות
     public void selectedClass() {
         String[] classArray = {"ז", "ח", "ט", "י", "יא", "יב"};
 
@@ -97,7 +102,7 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
                 .setNegativeButton("cancel", null)
                 .show();
     }
-
+    // מגדיר את Service של ההתראות לפי שעה
     public void startNotification() {
         sp = getSharedPreferences("notification", 0);
         if (sp.getBoolean("hasNotification", true)) {

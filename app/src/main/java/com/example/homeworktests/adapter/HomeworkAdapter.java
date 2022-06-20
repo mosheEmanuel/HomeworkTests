@@ -18,15 +18,16 @@ import java.util.List;
 public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.HomeworkTViewHolder> {
 
     Context mCtx;
-    List<Homework> homeworkList;
-    HomeworkItmeClickListener mHomeworkItmeClickListener;
+    List<Homework> homeworkList; // הרשימה
+    HomeworkItmeClickListener mHomeworkItmeClickListener; // אוביקט בשביל לדעת על איזה עצם לחצת
 
+    // פעולה בונה
     public HomeworkAdapter(Context mCtx, List<Homework> productList, HomeworkItmeClickListener mHomeworkItmeClickListener) {
         this.mCtx = mCtx;
         this.homeworkList = productList;
         this.mHomeworkItmeClickListener =mHomeworkItmeClickListener;
     }
-
+    //יוצרViewHolder
     @NonNull
     @Override
     public HomeworkTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,7 +35,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
         View view = inflater.inflate(R.layout.custom_layout_homework, null);
         return new HomeworkTViewHolder(view, mHomeworkItmeClickListener);
     }
-
+    // בונה את ViewHolder
     @Override
     public void onBindViewHolder(@NonNull HomeworkTViewHolder holder, int position) {
         Homework homework = homeworkList.get(position);
@@ -46,7 +47,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
     }
 
 
-
+// class עזר  שמקבל רפרנס ל custom_layout_homework
     static class HomeworkTViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvPage, tvExercise, tvSubject, tvDate, tvPriority;

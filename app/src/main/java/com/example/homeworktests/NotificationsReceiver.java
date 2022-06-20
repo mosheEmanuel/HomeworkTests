@@ -16,6 +16,7 @@ import com.example.homeworktests.sql.SqlLiteHelperHomework;
 public class NotificationsReceiver extends BroadcastReceiver {
 
     @Override
+            // BroadcastReceiver מגדיר התראה על ידי
     public void onReceive(Context context, Intent intent) {
         SqlLiteHelperHomework sql = new SqlLiteHelperHomework(context);
         sql.open();
@@ -25,7 +26,6 @@ public class NotificationsReceiver extends BroadcastReceiver {
 
             int icon = R.drawable.ic_baseline_access_time_24;
 
-            //phase 2
             long currentTimeMillis = System.currentTimeMillis();
             Intent intent1 = new Intent(context, MenuActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent1, 0);
@@ -39,7 +39,6 @@ public class NotificationsReceiver extends BroadcastReceiver {
                 notificationManager.createNotificationChannel(channel);
                 builder.setChannelId(channelId);
             }
-            //phase 3
             Notification notification = builder.setContentIntent(pendingIntent)
                     .setWhen(currentTimeMillis).setContentTitle(title).setSmallIcon(icon)
                     .setAutoCancel(true).

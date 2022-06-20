@@ -18,13 +18,11 @@ import java.util.Calendar;
 
 public class AddTestActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, View.OnClickListener {
 
-    AutoCompleteTextView acTestSubject;
-    EditText etTestSubSubject;
-    TextView tvTestDate;
-    Button btnTestAdd;
-    String date;
-    String subject;
-    String subSubject;
+    AutoCompleteTextView acTestSubject; //text view עם השלמה אוטמטית של המקצוע
+    EditText etTestSubSubject; // נושא הבחן
+    TextView tvTestDate; // טקסט שלוחצים עליו נותן לך לבחור תאריך
+    Button btnTestAdd; // כפתןר שמוסיף מבחן
+    String date;  // String שעליו יופיע התאריך
 
 
     @Override
@@ -35,6 +33,7 @@ public class AddTestActivity extends AppCompatActivity implements DatePickerDial
         setAutoComplete();
     }
 
+    // מגדיר את כל המשתנים
     public void init() {
         acTestSubject = findViewById(R.id.acTestSubject);
         etTestSubSubject = findViewById(R.id.etTestSubSubject);
@@ -47,28 +46,20 @@ public class AddTestActivity extends AppCompatActivity implements DatePickerDial
 
     @Override
     public void onClick(View view) {
-        if(view == tvTestDate)
-        {
+        if (view == tvTestDate) {
             setTvDate();
         }
-        if(view==btnTestAdd) {
-            subject = acTestSubject.getText().toString();
-            subSubject = etTestSubSubject.getText().toString();
-            Test test = new Test(subject, subSubject, date, 0);
-            SqlLiteHelperTest sql = new SqlLiteHelperTest(this);
-            sql.open();
-            sql.createTest(test);
-            sql.close();
-            finish();
+        if (view == btnTestAdd) {
+            setBtnAdd();
         }
     }
 
-    public void setAutoComplete() {
+    public void setAutoComplete() { // קובע את המלים בהשלמה האוטומטית
         String[] strAutoComplete = new String[]{"מתמטיקה", "אנגלית", "לשון", "עברית", "אזרחות", "גמרא", "תנך", "מחשבים"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, strAutoComplete);
         acTestSubject.setAdapter(adapter);
     }
-
+    // מגדיר את בחירת התאריך
     public void setTvDate() {
         int nowYear = Calendar.getInstance().get(Calendar.YEAR);
         int nowMonth = Calendar.getInstance().get(Calendar.MONTH);
@@ -90,6 +81,17 @@ public class AddTestActivity extends AppCompatActivity implements DatePickerDial
 
         String str = "אתה בחרת :" + date;
         tvTestDate.setText(str);
+    }
+
+    public void setBtnAdd() { // מגדיר את כפתור ההוספה
+        String subject = acTestSubject.getText().toString();
+        String subSubject = etTestSubSubject.getText().toString();
+        Test test = new Test(subject, subSubject, date, 0);
+        SqlLiteHelperTest sql = new SqlLiteHelperTest(this);
+        sql.open();
+        sql.createTest(test);
+        sql.close();
+        finish();
     }
 
 

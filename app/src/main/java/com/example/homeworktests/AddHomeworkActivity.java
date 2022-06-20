@@ -32,7 +32,7 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
 
     Button btnAdd; // הכפתור שמוסיף שעורי בית
 
-    String date; // String שעליו יופיע התאריך
+    String date; // String שעליו ישמר התאריך
 
     int priority; // העדיפות נשמר במספר 0-2
 

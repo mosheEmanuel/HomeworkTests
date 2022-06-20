@@ -13,48 +13,51 @@ import java.util.ArrayList;
 
 public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
-    public static final String DATABASENAME = "Homework.dp";
-    public static final String TABLE_HOMEWORK = "tblHomework";
-    public static final int DATABASEVERSION = 1;
 
-    public static final String COLUMN_ID = "HomeworkId";
 
-    public static final String COLUMN_SUBJECT = "subject";
-    public static final String COLUMN_SUB_SUBJECT = "subSubject";
-    public static final String COLUMN_PAGE = "page";
-    public static final String COLUMN_EXERCISE = "exercise";
-    public static final String COLUMN_PRIORITY = "priority";
-    public static final String COLUMN_DATE = "date";
+    public static final String DATABASENAME = "Homework.dp"; // שם הדטא ביס
+    public static final String TABLE_HOMEWORK = "tblHomework";// שם הטבלה
+    public static final int DATABASEVERSION = 1; // מספר גרסה
+
+    public static final String COLUMN_ID = "HomeworkId"; // הID של העמודה
+
+    public static final String COLUMN_SUBJECT = "subject"; // המקצוע
+    public static final String COLUMN_SUB_SUBJECT = "subSubject";  // הנושא
+    public static final String COLUMN_PAGE = "page"; //העמוד
+    public static final String COLUMN_EXERCISE = "exercise"; // התרגלים
+    public static final String COLUMN_PRIORITY = "priority"; // העדיפות
+    public static final String COLUMN_DATE = "date"; // התאריך
 
     SQLiteDatabase database;
 
-
+    // הקמת הטבלה
     private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
             + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_EXERCISE + " VARCHAR, " + COLUMN_PRIORITY + " INTEGER, "
             + COLUMN_DATE + " VARCHAR " + ");";
-
+    // מערך עם כל השורות
     String[] allColumns = {COLUMN_ID, COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_PAGE, COLUMN_EXERCISE,
             COLUMN_PRIORITY, COLUMN_DATE};
-
+    //פעולה בונה
     public SqlLiteHelperHomework(Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
     }
-
+    // יוצר את הטבלה בפעם הראשונה
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_HOMEWORK);
     }
 
-    @Override
+    @Override // פועל ברגע שמעדכנים את הטבלה
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOMEWORK);
         onCreate(db);
     }
-
+    // פןתח את הטבלה לכתיבה
     public void open() {
         database = this.getWritableDatabase();
     }
 
+    // יוצר עמודה חדשה
     public Homework createHomework(Homework homework) {
 
 //        long lastId = -1;
@@ -84,7 +87,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
         return homework;
     }
-
+    // יוצר מכול עמודה עצם ומחזיר רשימה שכוללת את כל הפרטים
     public ArrayList<Homework> getAllHomework() {
         ArrayList<Homework> l = new ArrayList<>();
         String query = "select * from " + TABLE_HOMEWORK;
@@ -116,7 +119,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
         }
         return l;
     }
-
+    // בודק האם הטבלה ריקה
     public boolean isEmpty() {
         boolean rowExists;
         Cursor mCursor = database.rawQuery("select * from " + TABLE_HOMEWORK, null);
@@ -127,7 +130,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
         return rowExists;
     }
-
+    // מוחק שורה מהטבלה על פי ID
     public long deleteByRow(long rowId) {
         return database.delete(SqlLiteHelperHomework.TABLE_HOMEWORK, SqlLiteHelperHomework.COLUMN_ID + "=" + rowId, null);
     }

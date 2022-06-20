@@ -12,43 +12,47 @@ import java.util.ArrayList;
 
 public class SqlLiteHelperTest extends SQLiteOpenHelper {
 
-    public static final String DATABASENAME = "Test.db";
-    public static final String TABLE_TEST = "tblTest";
-    public static final int DATABASEVERSION = 1;
+    public static final String DATABASENAME = "Test.db"; // שם הדטא ביס
+    public static final String TABLE_TEST = "tblTest";// שם הטבלה
+    public static final int DATABASEVERSION = 1;// מספר גרסה
 
-    public static final String COLUMN_ID = "testId";
+    public static final String COLUMN_ID = "testId";// הID של העמודה
 
-    public static final String COLUMN_SUBJECT = "subject";
-    public static final String COLUMN_SUB_SUBJECT = "subSubject";
-    public static final String COLUMN_DATE = "date";
+    public static final String COLUMN_SUBJECT = "subject";// המקצוע
+    public static final String COLUMN_SUB_SUBJECT = "subSubject";  // הנושא
+    public static final String COLUMN_DATE = "date";  // הנושא
 
     SQLiteDatabase database;
 
+    // הקמת הטבלה
     private static final String CREATE_TABLE_Test = "CREATE TABLE IF NOT EXISTS " + TABLE_TEST + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
             + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_DATE + " VARCHAR " + ");";
 
+    // מערך עם כל השורות
     String[] allColumns = {COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_DATE};
 
+    //פעולה בונה
     public SqlLiteHelperTest(Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
     }
-
+    // יוצר את הטבלה בפעם הראשונה
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_Test);
 
     }
-
+    // פועל ברגע שמעדכנים את הטבלה
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEST);
         onCreate(db);
     }
-
+    // פןתח את הטבלה לכתיבה
     public void open() {
         database = this.getWritableDatabase();
     }
 
+    // יוצר עמודה חדשה
     public Test createTest(Test test) {
 
         ContentValues values = new ContentValues();
@@ -62,7 +66,7 @@ public class SqlLiteHelperTest extends SQLiteOpenHelper {
 
     }
 
-
+    // יוצר מכול עמודה עצם ומחזיר רשימה שכוללת את כל הפרטים
     public ArrayList<Test> getAllTest() {
         ArrayList<Test> l = new ArrayList<>();
         String query = "select * from " + TABLE_TEST;
@@ -84,7 +88,7 @@ public class SqlLiteHelperTest extends SQLiteOpenHelper {
         }
         return l;
     }
-
+    // בודק האם הטבלה ריקה
     public boolean isEmpty() {
         boolean rowExists;
         Cursor mCursor = database.rawQuery("select * from " + TABLE_TEST, null);
@@ -95,7 +99,7 @@ public class SqlLiteHelperTest extends SQLiteOpenHelper {
 
         return rowExists;
     }
-
+    // מוחק שורה מהטבלה על פי ID
     public long deleteByRow(long rowId) {
         return database.delete(SqlLiteHelperTest.TABLE_TEST, SqlLiteHelperTest.COLUMN_ID + "=" + rowId, null);
     }

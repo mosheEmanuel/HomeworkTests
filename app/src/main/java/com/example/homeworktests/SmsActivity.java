@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 
-public class SmsActivity extends AppCompatActivity implements View.OnClickListener{
+public class SmsActivity extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences sp;
     SharedPreferences.Editor editor;
@@ -35,6 +35,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     EditText message;
     Button sendSms;
     boolean isGranted = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,19 +47,13 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
-    //פעולה שמאתחלת את האובייקטים
-    public void init(){
-
-
-
-
-        message=(EditText)findViewById(R.id.etSms);
-        sendSms =(Button)findViewById(R.id.btnSms);
+    // מגדיר את כל המשתנים
+    public void init() {
+        message = findViewById(R.id.etSms);
+        sendSms = findViewById(R.id.btnSms);
 
         sendSms.setOnClickListener(this);
-
     }
-
 
 
     @Override
@@ -69,14 +64,13 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
                 if (isGranted) {
                     sendSmsFunction();
                 }
-            }
-            else
+            } else
                 sendSmsFunction();
-        }
-        else
+        } else
             Toast.makeText(getApplicationContext(), "הודעה לא יכולה להיות ריקה", Toast.LENGTH_LONG).show();
 
     }
+
     public void dialog()//בונה את הדיאלוג אם המשתמש לא נתן הרשאה ומנסה עוד פעם לשלוח הודעה
     {
         AlertDialog.Builder builder = new AlertDialog
@@ -109,44 +103,41 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     }
 
 
-    public void sendSmsFunction(){//פעולה ששולחת sms למפתח
+    public void sendSmsFunction() {//פעולה ששולחת sms למפתח
 
         sp = getSharedPreferences("details", 0);
         String strFirsName = sp.getString("FirsName", null);
         String strLastName = sp.getString("LastName", null);
-        String strTheChoice =sp.getString("theChoice",null);
+        String strTheChoice = sp.getString("theChoice", null);
 
-        String msg="שלום אני " + strFirsName +" "+ strLastName+ " מכיתה " + strTheChoice;
-        msg+=" "+ message.getText().toString();//מוציא את ההודעה מהeditText
-
-
-        Intent intent=new Intent(getApplicationContext(),MenuActivity.class);
-        PendingIntent pi=PendingIntent.getActivity(getApplicationContext(), 0, intent,0);
+        String msg = "שלום אני " + strFirsName + " " + strLastName + " מכיתה " + strTheChoice;
+        msg += " " + message.getText().toString();//מוציא את ההודעה מהeditText
 
 
-        SmsManager sms=SmsManager.getDefault();//מתחבר לsms של המערכת
-        sms.sendTextMessage("0506558504", null, msg, pi,null);//שולח את ההודעה וחוזר למסך הראשי
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+
+
+        SmsManager sms = SmsManager.getDefault();//מתחבר לsms של המערכת
+        sms.sendTextMessage("0506558504", null, msg, pi, null);//שולח את ההודעה וחוזר למסך הראשי
 
         Toast.makeText(getApplicationContext(), "ההודעה נשלחה", Toast.LENGTH_LONG).show();
     }
 
     public void permission() {//פעולה שמטפלת בהרשאה
-        sp = getSharedPreferences("data",0);
+        sp = getSharedPreferences("data", 0);
         editor = sp.edit();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {//אם אין הרשאה
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {//אם זה פעם שניה שמבקשים הרשאה
                 dialog();
 
 
-            }
-
-            else if (!sp.getBoolean("firstCheckPermission",false)){//אחרת אם זה פעם ראשונה שמבקשים הרשאה
+            } else if (!sp.getBoolean("firstCheckPermission", false)) {//אחרת אם זה פעם ראשונה שמבקשים הרשאה
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 100);//מבקרש הרשאה
-                editor.putBoolean("firstCheckPermission",true);
+                editor.putBoolean("firstCheckPermission", true);
                 editor.commit();
 
-            }
-            else{//אם זה כבר פעם שלישית מפנים את המשתמש להגדרות של האפליקציה
+            } else {//אם זה כבר פעם שלישית מפנים את המשתמש להגדרות של האפליקציה
                 Toast.makeText(this, "תאשר אתה הרשאת SMS בהגדרות", Toast.LENGTH_LONG);
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);//הגדרת הintent להגדרות של האפליקציה
@@ -155,8 +146,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
                 this.startActivity(intent);
             }
 
-        }
-        else//יש הרשאה
+        } else//יש הרשאה
             isGranted = true;
     }
 
@@ -178,7 +168,8 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
                 isGranted = false;
         }
     }
-        public boolean onCreateOptionsMenu(Menu menu) {
+
+    public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -192,9 +183,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
         if (id == R.id.menuSms) {
 
             Toast.makeText(this, "אתה נמצא במסך הנוכחי", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.menuMenuActivity)
-        {
+        } else if (id == R.id.menuMenuActivity) {
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
         }
