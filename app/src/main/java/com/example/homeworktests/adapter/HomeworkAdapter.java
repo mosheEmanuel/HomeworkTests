@@ -19,12 +19,12 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
 
     Context mCtx;
     List<Homework> homeworkList;
-    ItmeClickListener mItmeClickListener;
+    HomeworkItmeClickListener mHomeworkItmeClickListener;
 
-    public HomeworkAdapter(Context mCtx, List<Homework> productList,ItmeClickListener mItmeClickListener) {
+    public HomeworkAdapter(Context mCtx, List<Homework> productList, HomeworkItmeClickListener mHomeworkItmeClickListener) {
         this.mCtx = mCtx;
         this.homeworkList = productList;
-        this.mItmeClickListener =mItmeClickListener;
+        this.mHomeworkItmeClickListener =mHomeworkItmeClickListener;
     }
 
     @NonNull
@@ -32,7 +32,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
     public HomeworkTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.custom_layout_homework, null);
-        return new HomeworkTViewHolder(view,mItmeClickListener);
+        return new HomeworkTViewHolder(view, mHomeworkItmeClickListener);
     }
 
     @Override
@@ -50,9 +50,9 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
     static class HomeworkTViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView tvPage, tvExercise, tvSubject, tvDate, tvPriority;
-        ItmeClickListener itmeClickListener;
+        HomeworkItmeClickListener homeworkItmeClickListener;
 
-        public HomeworkTViewHolder(View itemView, ItmeClickListener itmeClickListener) {
+        public HomeworkTViewHolder(View itemView, HomeworkItmeClickListener homeworkItmeClickListener) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvPage = itemView.findViewById(R.id.tvPage);
@@ -60,14 +60,14 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvPriority = itemView.findViewById(R.id.tvPriority);
             itemView.setOnClickListener(this);
-            this.itmeClickListener = itmeClickListener;
+            this.homeworkItmeClickListener = homeworkItmeClickListener;
 
         }
 
 
         @Override
         public void onClick(View v) {
-            itmeClickListener.onItmeClick(getAdapterPosition());
+            homeworkItmeClickListener.onHomeworkItmeClick(getAdapterPosition());
         }
     }
 
@@ -76,8 +76,8 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
         return homeworkList.size();
     }
 
-    public interface ItmeClickListener {
-        void onItmeClick(int position);
+    public interface HomeworkItmeClickListener {
+        void onHomeworkItmeClick(int position);
 
     }
 }

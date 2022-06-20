@@ -18,10 +18,12 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestTViewHolde
 
     Context mCtx;
     List<Test> testList;
+    TestItmeClickListener mTestItmeClickListener;
 
-    public TestAdapter(Context mCtx, List<Test> testList) {
+    public TestAdapter(Context mCtx, List<Test> testList, TestItmeClickListener mTestItmeClickListener) {
         this.mCtx = mCtx;
         this.testList = testList;
+        this.mTestItmeClickListener = mTestItmeClickListener;
     }
 
 
@@ -30,7 +32,7 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestTViewHolde
     public TestTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.custom_layout_test, null);
-        return new TestTViewHolder(view);
+        return new TestTViewHolder(view, mTestItmeClickListener);
     }
 
     @Override
@@ -46,16 +48,30 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.TestTViewHolde
         return testList.size();
     }
 
-    static class TestTViewHolder extends RecyclerView.ViewHolder {
+    static class TestTViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvSubject, tvSubSubject, tvDate;
+        TestItmeClickListener testItmeClickListener;
 
-        public TestTViewHolder(View itemView) {
+        public TestTViewHolder(View itemView, TestItmeClickListener testItmeClickListener) {
             super(itemView);
             tvSubject = itemView.findViewById(R.id.tvSubject);
             tvSubSubject = itemView.findViewById(R.id.tvSubSubject);
             tvDate = itemView.findViewById(R.id.tvDate);
+            itemView.setOnClickListener(this);
+            this.testItmeClickListener = testItmeClickListener;
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            testItmeClickListener.onTestItmeClick(getAdapterPosition());
         }
     }
 
+
+    public interface TestItmeClickListener {
+        void onTestItmeClick(int position);
+
+    }
 
 }

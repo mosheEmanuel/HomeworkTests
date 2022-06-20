@@ -31,14 +31,7 @@
             android:layout_height="60dp"
             android:text="שעורי בית" />
 
-        <ImageButton
-            android:id="@+id/ibFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_filter_list_24"
-            />
+
 
     </LinearLayout>
 

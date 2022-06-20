@@ -30,7 +30,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
-            + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_EXERCISE + " VARCHAR, "  + COLUMN_PRIORITY + " INTEGER, "
+            + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_EXERCISE + " VARCHAR, " + COLUMN_PRIORITY + " INTEGER, "
             + COLUMN_DATE + " VARCHAR " + ");";
 
     String[] allColumns = {COLUMN_ID, COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_PAGE, COLUMN_EXERCISE,
@@ -95,7 +95,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 String subject = "המקצוע: ";
                 subject += cursor.getString(cursor.getColumnIndex(COLUMN_SUBJECT));
-                String page= "העמוד: ";
+                String page = "העמוד: ";
                 page += cursor.getString(cursor.getColumnIndex(COLUMN_PAGE));
                 String exercise = "התרגיל: ";
                 exercise += cursor.getString(cursor.getColumnIndex(COLUMN_EXERCISE));
@@ -103,19 +103,20 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
                 int priority = cursor.getInt(cursor.getColumnIndex(COLUMN_PRIORITY));
                 long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
 
-                String sPriority= "העדיפות: ";
+                String sPriority = "העדיפות: ";
                 if (priority == 1)
                     sPriority += "נמוכה";
                 else if (priority == 2)
                     sPriority += "בנונית";
                 else
                     sPriority += "גבוהה";
-                Homework homework = new Homework(id,page, exercise, subject, date, sPriority);
+                Homework homework = new Homework(id, page, exercise, subject, date, sPriority);
                 l.add(homework);
             }
         }
         return l;
     }
+
     public boolean isEmpty() {
         boolean rowExists;
         Cursor mCursor = database.rawQuery("select * from " + TABLE_HOMEWORK, null);
@@ -130,6 +131,37 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
     public long deleteByRow(long rowId) {
         return database.delete(SqlLiteHelperHomework.TABLE_HOMEWORK, SqlLiteHelperHomework.COLUMN_ID + "=" + rowId, null);
     }
+
+//    public long updateByRow(Homework homework) {
+//        ContentValues values = new ContentValues();
+//        values.put(COLUMN_ID, homework.getId());
+//        values.put(COLUMN_SUBJECT, homework.getSubject());
+//        values.put(COLUMN_SUB_SUBJECT, homework.getSubSubject());
+//        values.put(COLUMN_PAGE, homework.getPage());
+//        values.put(COLUMN_EXERCISE, homework.getExercise());
+//        values.put(COLUMN_PRIORITY, homework.getPriority());
+//        values.put(COLUMN_DATE, homework.getDate());
+//        return database.update(SqlLiteHelperHomework.TABLE_HOMEWORK, values, SqlLiteHelperHomework.COLUMN_ID + "=" + homework.getId(), null);
+//
+//    }
+//
+//    public Homework getHomeworkById(long rowId) {
+//        Cursor cursor = database.query(SqlLiteHelperHomework.TABLE_HOMEWORK, allColumns, SqlLiteHelperHomework.COLUMN_ID + "=" + rowId, null, null, null, null);
+//        cursor.moveToFirst();
+//        if (cursor.getCount() > 0) {
+//            long id = cursor.getLong(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_ID));
+//            String subject = cursor.getString(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_SUBJECT));
+//            String subSubject = cursor.getString(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_SUB_SUBJECT));
+//            String page = cursor.getString(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_PAGE));
+//            String exercise = cursor.getString(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_EXERCISE));
+//            int priority = cursor.getInt(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_PRIORITY));
+//            String date = cursor.getString(cursor.getColumnIndex(SqlLiteHelperHomework.COLUMN_DATE));
+//            Homework homework = new Homework(id, subject, subSubject, page, exercise, date, priority);
+//            this.close();
+//            return homework;
+//        }
+//        return null;
+//    }
 
 
 }

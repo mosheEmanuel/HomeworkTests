@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,12 +29,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, HomeworkAdapter.ItmeClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, HomeworkAdapter.HomeworkItmeClickListener, TestAdapter.TestItmeClickListener {
 
     Button btnTest;//הכפתור מראה את המבחנים
     Button btnHomework; // הכפתור מארה את השעורי בית
     Button btnExit;
-    Button btnUpdate;
 
     FloatingActionButton fab; // כפתור עגול שמראה את שתי הכפתורים העגולים האחרי
     FloatingActionButton fabHomework; // כפתור שלמעביר אותך למסך activity_add_homework
@@ -46,7 +44,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     Animation rotateForward;
     Animation rotateBackward;
 
-    ImageButton ibFilter;
 
     TextView tvOpen; // הטקסט שמופיע שאין שעורי בית או מבחנים
 
@@ -65,7 +62,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     SqlLiteHelperHomework sqlHomework; // הdb של השעורי בית
     SqlLiteHelperTest sqlTest; // הdp של המבחנים
 
-    Dialog dHomework;
+    Dialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,8 +88,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
         linearLayout = findViewById(R.id.linearLayout);
 
-        ibFilter = findViewById(R.id.ibFilter);
-
         tvOpen = findViewById(R.id.tvOpen);
         fab = findViewById(R.id.fab);
         fabHomework = findViewById(R.id.fabTest);
@@ -102,12 +98,10 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
-        ibFilter.setOnClickListener(this);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         fab.setOnClickListener(this);
         fabHomework.setOnClickListener(this);
@@ -142,10 +136,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
             setHomeworkRecyclerView();
         } else if (v == btnTest) {
             setTestRecyclerView();
-        }
-        else if (v ==btnExit)
-        {
-            dHomework.cancel();
+        } else if (v == btnExit) {
+            dialog.cancel();
         }
 
     }
@@ -178,7 +170,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         sqlHomework.open();
         allHomework = sqlHomework.getAllHomework();
         sqlHomework.close();
-        homeworkAdapter = new HomeworkAdapter(this, allHomework,this);
+        homeworkAdapter = new HomeworkAdapter(this, allHomework, this);
         recyclerView.setAdapter(homeworkAdapter);
         homeworkOrTest = true;
 
@@ -189,7 +181,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         sqlTest.open();
         allTest = sqlTest.getAllTest();
         sqlTest.close();
-        testAdapter = new TestAdapter(this, allTest);
+        testAdapter = new TestAdapter(this, allTest, this);
         recyclerView.setAdapter(testAdapter);
         homeworkOrTest = false;
 
@@ -295,21 +287,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void createHomeworkDialog(int position) {
-        dHomework = new Dialog(this);
-        dHomework.setContentView(R.layout.custom_layout_all_details_homework);
-        dHomework.setTitle("כל הפרטים");
-        dHomework.setCancelable(true);
-        TextView tvSubject = dHomework.findViewById(R.id.tvSubject);
-        TextView tvSubSubject = dHomework.findViewById(R.id.tvSubSubject);
-        TextView tvPage = dHomework.findViewById(R.id.tvPage);
-        TextView tvExercise = dHomework.findViewById(R.id.tvExercise);
-        TextView tvDate = dHomework.findViewById(R.id.tvDate);
-        TextView tvPriority = dHomework.findViewById(R.id.tvPriority);
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_layout_all_details_homework);
+        dialog.setTitle("כל הפרטים");
+        dialog.setCancelable(true);
+        TextView tvSubject = dialog.findViewById(R.id.tvSubject);
+        TextView tvSubSubject = dialog.findViewById(R.id.tvSubSubject);
+        TextView tvPage = dialog.findViewById(R.id.tvPage);
+        TextView tvExercise = dialog.findViewById(R.id.tvExercise);
+        TextView tvDate = dialog.findViewById(R.id.tvDate);
+        TextView tvPriority = dialog.findViewById(R.id.tvPriority);
 
-        btnUpdate = dHomework.findViewById(R.id.btnUpdate);
-        btnExit = dHomework.findViewById(R.id.btnExit);
+        btnExit = dialog.findViewById(R.id.btnExit);
 
-        btnUpdate.setOnClickListener(this);
         btnExit.setOnClickListener(this);
 
         tvSubject.setText(allHomework.get(position).getSubject());
@@ -318,14 +308,38 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         tvExercise.setText(allHomework.get(position).getExercise());
         tvDate.setText(allHomework.get(position).getDate());
         tvPriority.setText(allHomework.get(position).getPriority());
-        dHomework.show();
+        dialog.show();
 
+    }
+
+    public void createTestDialog (int position) {
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_layout_all_details_test);
+        dialog.setTitle("כל הפרטים");
+        TextView tvSubject = dialog.findViewById(R.id.tvSubject);
+        TextView tvSubSubject = dialog.findViewById(R.id.tvSubSubject);
+        TextView tvDate = dialog.findViewById(R.id.tvDate);
+
+        btnExit = dialog.findViewById(R.id.btnExit);
+
+        btnExit.setOnClickListener(this);
+
+        tvSubject.setText(allTest.get(position).getSubject());
+        tvSubSubject.setText(allTest.get(position).getSubSubject());
+        tvDate.setText(allTest.get(position).getDate());
+
+        dialog.show();
 
     }
 
 
     @Override
-    public void onItmeClick(int position) {
-        createHomeworkDialog(position);
+    public void onHomeworkItmeClick(int position) {
+    createHomeworkDialog(position);
+    }
+
+    @Override
+    public void onTestItmeClick(int position) {
+        createTestDialog(position);
     }
 }

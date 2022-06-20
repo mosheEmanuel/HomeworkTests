@@ -5,7 +5,7 @@
     android:layout_gravity="center_horizontal"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:id="@+id/custom_layout_all_details_homework">
+    android:id="@+id/custom_layout_all_details_test">
 
     <TextView
         android:id="@+id/tvSubject"
@@ -22,32 +22,12 @@
         android:textSize="40sp" />
 
     <TextView
-        android:id="@+id/tvPage"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="40sp" />
-
-    <TextView
-        android:id="@+id/tvExercise"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="40sp" />
-
-    <TextView
         android:id="@+id/tvDate"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/tvPriority"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="40sp" />
 
 
     <android.widget.Button
@@ -55,10 +35,9 @@
         android:layout_width="250dp"
         android:layout_height="75dp"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/my_button_red"
         android:hint="חזור"
         android:textColorHint="#5E7BE4"
-        android:textSize="20sp"
-        android:layout_marginBottom="20dp"/>
-
+        android:textSize="20sp" />
 </LinearLayout>
