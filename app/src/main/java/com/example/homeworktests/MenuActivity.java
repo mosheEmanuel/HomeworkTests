@@ -175,6 +175,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         recyclerView.setAdapter(homeworkAdapter);
         homeworkOrTest = true;
 
+
     }
 
     public void setTestRecyclerView() { // קובע RecyclerView למבחן
@@ -281,6 +282,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         if (id == R.id.menuSms) {
             Intent intent = new Intent(this, SmsActivity.class);
             startActivity(intent);
+            finish();
         } else if (id == R.id.menuMenuActivity) {
             Toast.makeText(this, "אתה נמצא במסך הנוכחי", Toast.LENGTH_SHORT).show();
         }
@@ -289,7 +291,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     // יוצר Dialog שמראה את כל הפרטים של השעורי הבית בגדול
     public void createHomeworkDialog(int position) {
         dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_layout_all_details_homework);
+        dialog.setContentView(R.layout.dialog_homework);
         dialog.setTitle("כל הפרטים");
         dialog.setCancelable(true);
         TextView tvSubject = dialog.findViewById(R.id.tvSubject);
@@ -316,7 +318,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     public void createTestDialog (int position) {
         dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_layout_all_details_test);
+        dialog.setContentView(R.layout.dialog_test);
         dialog.setTitle("כל הפרטים");
         TextView tvSubject = dialog.findViewById(R.id.tvSubject);
         TextView tvSubSubject = dialog.findViewById(R.id.tvSubSubject);

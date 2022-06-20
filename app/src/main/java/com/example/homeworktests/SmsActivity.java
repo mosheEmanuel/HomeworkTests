@@ -186,6 +186,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
         } else if (id == R.id.menuMenuActivity) {
             Intent intent = new Intent(this, MenuActivity.class);
             startActivity(intent);
+            finish();
         }
         return true;
     }

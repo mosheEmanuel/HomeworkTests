@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:hint="כתוב את הודעה פה"
         android:ems="10"
+        android:hint="כתוב את הודעה פה"
         android:inputType="textMultiLine" />
 
     <Button
