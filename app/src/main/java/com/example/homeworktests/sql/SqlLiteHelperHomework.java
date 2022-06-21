@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
 
-
     public static final String DATABASENAME = "Homework.dp"; // שם הדטא ביס
     public static final String TABLE_HOMEWORK = "tblHomework";// שם הטבלה
     public static final int DATABASEVERSION = 1; // מספר גרסה
@@ -31,16 +30,20 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
     SQLiteDatabase database;
 
     // הקמת הטבלה
-    private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
-            + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_EXERCISE + " VARCHAR, " + COLUMN_PRIORITY + " INTEGER, "
-            + COLUMN_DATE + " VARCHAR " + ");";
+    private static final String CREATE_TABLE_HOMEWORK = "CREATE TABLE IF NOT EXISTS " + TABLE_HOMEWORK + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + COLUMN_SUBJECT + " VARCHAR, " + COLUMN_SUB_SUBJECT +
+            " VARCHAR, " + COLUMN_PAGE + " VARCHAR, " + COLUMN_EXERCISE + " VARCHAR, " + COLUMN_PRIORITY +
+            " INTEGER, " + COLUMN_DATE + " VARCHAR " + ");";
+
     // מערך עם כל השורות
     String[] allColumns = {COLUMN_ID, COLUMN_SUBJECT, COLUMN_SUB_SUBJECT, COLUMN_PAGE, COLUMN_EXERCISE,
             COLUMN_PRIORITY, COLUMN_DATE};
+
     //פעולה בונה
     public SqlLiteHelperHomework(Context context) {
         super(context, DATABASENAME, null, DATABASEVERSION);
     }
+
     // יוצר את הטבלה בפעם הראשונה
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -52,6 +55,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOMEWORK);
         onCreate(db);
     }
+
     // פןתח את הטבלה לכתיבה
     public void open() {
         database = this.getWritableDatabase();
@@ -59,20 +63,6 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
     // יוצר עמודה חדשה
     public Homework createHomework(Homework homework) {
-
-//        long lastId = -1;
-//        String str_sql = "INSERT INTO " + SqlLiteHelperHomework.TABLE_HOMEWORK + "(" + COLUMN_SUBJECT + ","
-//                + COLUMN_PAGE + "," + COLUMN_SUB_SUBJECT + "," + COLUMN_NOTIFICATION + "," + COLUMN_PRIORITY + ","
-//                + COLUMN_YEAR + "," + COLUMN_MONTH + "," + COLUMN_DAYOfMONTH + ")"
-//                + " VALUES ('" + homework.getSubject() + "','" + homework.getPage() + "','" + homework.getSubSubject() + "','"
-//                + homework.getNotifications() + "','" + homework.getPriority() + "','" + homework.getYear() + "','" + homework.getMonth() + "','" + homework.getDayOfMonth() + "')";
-//        database.execSQL(str_sql);
-//        str_sql = "SELECT " + SqlLiteHelperHomework.COLUMN_ID + " from " + SqlLiteHelperHomework.TABLE_HOMEWORK + "  order by " + SqlLiteHelperHomework.COLUMN_ID + " DESC limit 1\n";
-//        Cursor c = database.rawQuery(str_sql, null);
-//        if (c != null && c.moveToFirst()) {
-//            lastId = c.getLong(0); //The 0 is the column index, we only have 1 column, so the index is 0
-//            Log.d("data1", "" + lastId);
-//        }
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_SUBJECT, homework.getSubject());
@@ -86,7 +76,22 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
         homework.setId(insertId);
 
         return homework;
+
+        //        long lastId = -1;
+//        String str_sql = "INSERT INTO " + SqlLiteHelperHomework.TABLE_HOMEWORK + "(" + COLUMN_SUBJECT + ","
+//                + COLUMN_PAGE + "," + COLUMN_SUB_SUBJECT + "," + COLUMN_NOTIFICATION + "," + COLUMN_PRIORITY + ","
+//                + COLUMN_YEAR + "," + COLUMN_MONTH + "," + COLUMN_DAYOfMONTH + ")"
+//                + " VALUES ('" + homework.getSubject() + "','" + homework.getPage() + "','" + homework.getSubSubject() + "','"
+//                + homework.getNotifications() + "','" + homework.getPriority() + "','" + homework.getYear() + "','" + homework.getMonth() + "','" + homework.getDayOfMonth() + "')";
+//        database.execSQL(str_sql);
+//        str_sql = "SELECT " + SqlLiteHelperHomework.COLUMN_ID + " from " + SqlLiteHelperHomework.TABLE_HOMEWORK + "  order by " + SqlLiteHelperHomework.COLUMN_ID + " DESC limit 1\n";
+//        Cursor c = database.rawQuery(str_sql, null);
+//        if (c != null && c.moveToFirst()) {
+//            lastId = c.getLong(0); //The 0 is the column index, we only have 1 column, so the index is 0
+//            Log.d("data1", "" + lastId);
+//        }
     }
+
     // יוצר מכול עמודה עצם ומחזיר רשימה שכוללת את כל הפרטים
     public ArrayList<Homework> getAllHomework() {
         ArrayList<Homework> l = new ArrayList<>();
@@ -119,6 +124,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
         }
         return l;
     }
+
     // בודק האם הטבלה ריקה
     public boolean isEmpty() {
         boolean rowExists;
@@ -130,6 +136,7 @@ public class SqlLiteHelperHomework extends SQLiteOpenHelper {
 
         return rowExists;
     }
+
     // מוחק שורה מהטבלה על פי ID
     public long deleteByRow(long rowId) {
         return database.delete(SqlLiteHelperHomework.TABLE_HOMEWORK, SqlLiteHelperHomework.COLUMN_ID + "=" + rowId, null);

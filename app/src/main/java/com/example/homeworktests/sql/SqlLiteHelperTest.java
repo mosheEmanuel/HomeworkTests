@@ -25,7 +25,8 @@ public class SqlLiteHelperTest extends SQLiteOpenHelper {
     SQLiteDatabase database;
 
     // הקמת הטבלה
-    private static final String CREATE_TABLE_Test = "CREATE TABLE IF NOT EXISTS " + TABLE_TEST + "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
+    private static final String CREATE_TABLE_Test = "CREATE TABLE IF NOT EXISTS " + TABLE_TEST + "(" + COLUMN_ID +
+            " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_SUBJECT + " VARCHAR, "
             + COLUMN_SUB_SUBJECT + " VARCHAR, " + COLUMN_DATE + " VARCHAR " + ");";
 
     // מערך עם כל השורות

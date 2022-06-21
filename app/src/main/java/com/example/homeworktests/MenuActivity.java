@@ -29,13 +29,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, HomeworkAdapter.HomeworkItmeClickListener, TestAdapter.TestItmeClickListener {
+public class MenuActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener,
+        HomeworkAdapter.HomeworkItmeClickListener, TestAdapter.TestItmeClickListener {
 
     Button btnTest;//הכפתור מראה את המבחנים
-    Button btnHomework; // הכפתור מארה את השעורי בית
+    Button btnHomework; // הכפתור מהראה את השעורי בית
     Button btnExit;
 
-    FloatingActionButton fab; // כפתור עגול שמראה את שתי הכפתורים העגולים האחרי
+    FloatingActionButton fab; // כפתור עגול שמראה את שתי הכפתורים העגולים האחרים
     FloatingActionButton fabHomework; // כפתור שלמעביר אותך למסך activity_add_homework
     FloatingActionButton fabTest; // כפתור שלמעביר אותך למסך activity_add_test
 
@@ -50,8 +51,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     LinearLayout linearLayout; // Layout של הכפתורים  btnTest btnHomework
 
-    boolean animationIsOpen = false; // boolean שבודק האם האנמציות נפתחו
-    boolean homeworkOrTest = true; // boolean שבודק על איזה כפתור אנחנו נמצאים עך  btnTest או btnHomework
+    boolean animationIsOpen; // boolean שבודק האם האנמציות נפתחו
+    boolean homeworkOrTest; // boolean שבודק על איזה כפתור אנחנו נמצאים עך  btnTest או btnHomework
 
     RecyclerView recyclerView; // ה recyclerView שמראה את השעורי בית/מבחנים
 
@@ -63,7 +64,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     SqlLiteHelperHomework sqlHomework; // הdb של השעורי בית
     SqlLiteHelperTest sqlTest; // הdp של המבחנים
 
-    Dialog dialog;
+    Dialog dialog;// דילוג
 
 
     @Override
@@ -99,6 +100,8 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         rotateForward = AnimationUtils.loadAnimation(this, R.anim.rotate_forward);
         rotateBackward = AnimationUtils.loadAnimation(this, R.anim.rotate_backward);
 
+        animationIsOpen = false;
+        homeworkOrTest = true;
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -222,6 +225,19 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {      // פעולת המחיקה בהחלקה
+
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            deleteAlertDialog(viewHolder);
+        }
+    };
+
     public void deleteAlertDialog(RecyclerView.ViewHolder viewHolder) {   // מראה דילוג ששאול האם אתה בטוח רוצה למחוק
         AlertDialog.Builder builder = new AlertDialog.Builder(this).
                 setTitle("Delete")
@@ -253,18 +269,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {      // פעולת המחיקה בהחלקה
 
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            return false;
-        }
-
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-            deleteAlertDialog(viewHolder);
-        }
-    };
 
     // מגדיר את ה menu
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -27,7 +27,7 @@ public class HomeworkAdapter extends RecyclerView.Adapter<HomeworkAdapter.Homewo
         this.homeworkList = productList;
         this.mHomeworkItmeClickListener =mHomeworkItmeClickListener;
     }
-    //יוצרViewHolder
+    //יוצר מופע יחיד של הלrecyclerVie
     @NonNull
     @Override
     public HomeworkTViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

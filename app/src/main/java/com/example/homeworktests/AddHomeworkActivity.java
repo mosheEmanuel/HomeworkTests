@@ -69,6 +69,7 @@ public class AddHomeworkActivity extends AppCompatActivity implements AdapterVie
         if (v == tvDate) {
             setTvDate();
         } else
+            if (v ==btnAdd)
             setBtnAdd();
     }
 

@@ -40,9 +40,6 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms);
-
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);//הופף את הactivity למסך מלא
         init();
 
     }
@@ -60,7 +57,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         if (!message.getText().toString().equals("")) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                permission();//בקשת הרשאה
+                permission();
                 if (isGranted) {
                     sendSmsFunction();
                 }
@@ -75,7 +72,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     {
         AlertDialog.Builder builder = new AlertDialog
                 .Builder(this);
-        builder.setMessage("בשביל לשלוח הודעה למפתח אתה צריך לאשר את הבקשה");//הסבר למשתמש
+        builder.setMessage("בשביל לשלוח הודעה למפתח אתה צריך לאשר את הבקשה");
         builder.setTitle("צריך הרשאה ל SMS");
         builder.setCancelable(true);
 
@@ -83,23 +80,23 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
         builder.setPositiveButton(
                 "אשר", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which)//אם המשתמש לוחץ allow
+                    public void onClick(DialogInterface dialog, int which)
                     {
-                        ActivityCompat.requestPermissions(SmsActivity.this, new String[]{Manifest.permission.SEND_SMS}, 200);//מבקש הרשאה
+                        ActivityCompat.requestPermissions(SmsActivity.this, new String[]{Manifest.permission.SEND_SMS}, 200);
                     }
                 });
         builder.setNegativeButton(
                 "דחה", new DialogInterface.OnClickListener() {
 
                     @Override
-                    public void onClick(DialogInterface dialog, int which)//אם המשתמש לוחץ no
+                    public void onClick(DialogInterface dialog, int which)
                     {
-                        dialog.cancel();//סוגר את הדיאלוג
+                        dialog.cancel();
                     }
                 });
 
         AlertDialog alertDialog = builder.create();
-        alertDialog.show();//מציד את הדיאלוג
+        alertDialog.show();
     }
 
 
@@ -111,15 +108,15 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
         String strTheChoice = sp.getString("theChoice", null);
 
         String msg = "שלום אני " + strFirsName + " " + strLastName + " מכיתה " + strTheChoice;
-        msg += " " + message.getText().toString();//מוציא את ההודעה מהeditText
+        msg += " " + message.getText().toString();
 
 
         Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
 
 
-        SmsManager sms = SmsManager.getDefault();//מתחבר לsms של המערכת
-        sms.sendTextMessage("0506558504", null, msg, pi, null);//שולח את ההודעה וחוזר למסך הראשי
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage("0506558504", null, msg, pi, null);
 
         Toast.makeText(getApplicationContext(), "ההודעה נשלחה", Toast.LENGTH_LONG).show();
     }
@@ -127,22 +124,22 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     public void permission() {//פעולה שמטפלת בהרשאה
         sp = getSharedPreferences("data", 0);
         editor = sp.edit();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {//אם אין הרשאה
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {//אם זה פעם שניה שמבקשים הרשאה
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
                 dialog();
 
 
-            } else if (!sp.getBoolean("firstCheckPermission", false)) {//אחרת אם זה פעם ראשונה שמבקשים הרשאה
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 100);//מבקרש הרשאה
+            } else if (!sp.getBoolean("firstCheckPermission", false)) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, 100);
                 editor.putBoolean("firstCheckPermission", true);
                 editor.commit();
 
-            } else {//אם זה כבר פעם שלישית מפנים את המשתמש להגדרות של האפליקציה
+            } else {
                 Toast.makeText(this, "תאשר אתה הרשאת SMS בהגדרות", Toast.LENGTH_LONG);
                 Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);//הגדרת הintent להגדרות של האפליקציה
+                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 Uri uri = Uri.fromParts("package", this.getPackageName(), null);
-                intent.setData(uri);//הפניה להגדרות של האפליקציה הנוכחית
+                intent.setData(uri);
                 this.startActivity(intent);
             }
 
@@ -154,9 +151,9 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {//פעולה שמופעלת אחרי בקשת הרשאה
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 100) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {//אם המשתמש אישר
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 isGranted = true;
-            } else {//המשתמש לא אישר
+            } else {
                 isGranted = false;
             }
         }
@@ -169,11 +166,7 @@ public class SmsActivity extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

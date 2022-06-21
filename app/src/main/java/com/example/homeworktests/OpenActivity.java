@@ -22,10 +22,10 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvClass; //  TextView שממנו יצא AlertDialog עם הכיתות
     String theChoice; //  String עם הבחריה של הכיתה
     Button btnNext; // כפתור שמוביל אותך למסך הבא
-    SharedPreferences sp;
-    SharedPreferences.Editor editor;
-    PendingIntent pendingIntent;// בשביל ההתראות
-    AlarmManager alarmManager;// מוצא שעה בשביל ההתראות
+    SharedPreferences sp;// SharedPreferences שומר את הנתונים ומוציא
+    SharedPreferences.Editor editor; // SharedPreferences.Editor שמאפשר הכנסת הנתונים
+    PendingIntent pendingIntent;//תכונה שאחראית לשלוח את המשתמשלactivity Main כשהוא לוחץ על ההתראה.
+    AlarmManager alarmManager;// תכונה שמתחברת לService המערכת שלתזמון ההתראות
 
 
     @Override
@@ -35,9 +35,9 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
 
         setContentView(R.layout.activity_open);
 
+        init();
         startNotification();
         firstScreen();
-        init();
     }
 
     // מגדיר את כל המשתנים
@@ -51,16 +51,6 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
         btnNext.setOnClickListener(this);
     }
 
-    // בודע האם זה פעם ראשונה שלך במסך עם לא מעביר אותך למסך הבא
-    public void firstScreen() {
-        sp = getSharedPreferences("haveName", 0);
-        boolean haveName = sp.getBoolean("haveName", false);
-        if (haveName) {
-            Intent intent = new Intent(this, MenuActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
 
     @Override
     public void onClick(View v) {
@@ -72,7 +62,20 @@ public class OpenActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-// קובע מה קורה עם לוחצים על כפתור נקסט
+
+    // בודע האם זה פעם ראשונה שלך במסך עם לא מעביר אותך למסך הבא
+    public void firstScreen() {
+        sp = getSharedPreferences("haveName", 0);
+        boolean haveName = sp.getBoolean("haveName", false);
+        if (haveName) {
+            Intent intent = new Intent(this, MenuActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+
+// קובע מה קורה אם לוחצים על כפתור נקסט
     public void setBtnNext() {
         editor = sp.edit();
         editor.putBoolean("haveName", true);
